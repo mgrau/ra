@@ -1,0 +1,23 @@
+{
+  "name": "ra",
+  "version": "0.0.1",
+  "description": "ra is a fun game where you bid in auctions",
+  "main": "index.jsx",
+  "scripts": {
+    "start": "parcel local.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Grau",
+  "license": "ISC",
+  "dependencies": {
+    "boardgame.io": "^0.31.5",
+    "parcel-bundler": "^1.12.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "typescript": "^3.4.5"
+  }
+}

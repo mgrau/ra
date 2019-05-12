@@ -44,7 +44,7 @@ export enum MonumentType {
   sphinx = "sphinx"
 }
 
-enum DisasterType {
+export enum DisasterType {
   war = "war",
   funeral = "funeral",
   drought = "drought",

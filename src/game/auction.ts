@@ -1,5 +1,6 @@
 import { GameState } from "./game";
 import EndEpoch from "./epoch";
+import { Tile, TileType, DisasterType, RiverType } from "./tile";
 
 export default function AuctionEnd(G: GameState) {
   G.ra = null;
@@ -12,6 +13,30 @@ export default function AuctionEnd(G: GameState) {
   } else {
     winner.usedSuns = [...winner.usedSuns, G.sun];
     winner.tiles = [...winner.tiles, ...G.auctionTrack];
+    const disasters = winner.tiles.filter(
+      tile => tile.tileType == TileType.Disaster
+    );
+    winner.tiles = winner.tiles.filter(
+      tile => tile.tileType != TileType.Disaster
+    );
+    disasters.forEach(disaster => {
+      if (disaster.subType == DisasterType.funeral) {
+        winner.tiles = DiscardPharaoh(winner.tiles);
+        winner.tiles = DiscardPharaoh(winner.tiles);
+      }
+      if (disaster.subType == DisasterType.drought) {
+        winner.tiles = DiscardRiver(winner.tiles);
+        winner.tiles = DiscardRiver(winner.tiles);
+      }
+      if (disaster.subType == DisasterType.war) {
+        winner.tiles = DiscardCivilization(winner.tiles);
+        winner.tiles = DiscardCivilization(winner.tiles);
+      }
+      if (disaster.subType == DisasterType.earthquake) {
+        winner.tiles = DiscardMonument(winner.tiles);
+        winner.tiles = DiscardMonument(winner.tiles);
+      }
+    });
     winner.suns.splice(winner.suns.indexOf(maxBid), 1);
     G.sun = maxBid;
     G.auctionTrack = [];
@@ -26,4 +51,41 @@ export default function AuctionEnd(G: GameState) {
     EndEpoch(G);
   }
   return G;
+}
+
+function DiscardPharaoh(tiles: Tile[]) {
+  const index = tiles.findIndex(tile => tile.tileType == TileType.Pharaoh);
+  if (index > 0) {
+    tiles.splice(index, 1);
+  }
+  return tiles;
+}
+
+function DiscardRiver(tiles: Tile[]) {
+  const floodIndex = tiles.findIndex(tile => tile.subType == RiverType.flood);
+  if (floodIndex > 0) {
+    tiles.splice(floodIndex, 1);
+  } else {
+    const nileIndex = tiles.findIndex(tile => tile.subType == RiverType.nile);
+    if (nileIndex > 0) {
+      tiles.splice(nileIndex, 1);
+    }
+  }
+  return tiles;
+}
+
+function DiscardCivilization(tiles: Tile[]) {
+  const index = tiles.findIndex(tile => tile.tileType == TileType.Civilization);
+  if (index > 0) {
+    tiles.splice(index, 1);
+  }
+  return tiles;
+}
+
+function DiscardMonument(tiles: Tile[]) {
+  const index = tiles.findIndex(tile => tile.tileType == TileType.Monument);
+  if (index > 0) {
+    tiles.splice(index, 1);
+  }
+  return tiles;
 }

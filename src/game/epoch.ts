@@ -12,6 +12,8 @@ export default function EndEpoch(G: GameState) {
   Score(G);
 
   DiscardTiles(G);
+
+  // Player with highest numbered sun disk takes the first turn
 }
 
 function FlipSuns(G: GameState) {
@@ -23,7 +25,7 @@ function FlipSuns(G: GameState) {
 
 function DiscardTiles(G: GameState) {
   G.players.forEach(player => {
-    player.tiles.filter(
+    player.tiles = player.tiles.filter(
       tile =>
         tile.tileType == TileType.Monument ||
         tile.tileType == TileType.Pharaoh ||

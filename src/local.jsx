@@ -7,7 +7,7 @@ import RaBoard from "./board/board";
 // import "./board/css/lobby.css";
 
 const RaClient = Client({
-  numPlayers: 3,
+  numPlayers: 2,
   game: Ra,
   board: RaBoard,
   //   // multiplayer: { server: "http://localhost:5000" },

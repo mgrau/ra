@@ -29,20 +29,25 @@ export function invoke(G: GameState, ctx) {
 
 export function god(G: GameState, ctx) {}
 
+export function canPass(G: GameState, ctx) {
+  return !(
+    ctx.currentPlayer == G.ra &&
+    G.auctionTrack.length < 8 &&
+    G.players.every(player => player.bid == null)
+  );
+}
+
 export function pass(G: GameState, ctx) {
   // Ra player is required to bid only if
   // they invoked Ra when the auction track
   // was not full and all other players have
   // passed
-  if (
-    ctx.currentPlayer == G.ra &&
-    G.auctionTrack.length < 8 &&
-    G.players.every(player => player.bid == null)
-  ) {
+  if (!canPass(G, ctx)) {
     console.log("can't pass if you are ra");
     return INVALID_MOVE;
   }
   G.players[ctx.currentPlayer].bid = null;
+  G.players[ctx.currentPlayer].pass = true;
 }
 
 export function bid(G: GameState, ctx, bid: number) {

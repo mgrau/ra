@@ -9,13 +9,18 @@ export default function AuctionEnd(G: GameState) {
     if (G.auctionTrack.length >= 8) {
       G.auctionTrack = [];
     }
-    return G;
+  } else {
+    winner.usedSuns = [...winner.usedSuns, G.sun];
+    winner.tiles = [...winner.tiles, ...G.auctionTrack];
+    winner.suns.splice(winner.suns.indexOf(maxBid), 1);
+    G.sun = maxBid;
+    G.auctionTrack = [];
   }
-  winner.usedSuns = [...winner.usedSuns, G.sun];
-  winner.tiles = [...winner.tiles, ...G.auctionTrack];
-  winner.suns.splice(winner.suns.indexOf(maxBid), 1);
-  G.sun = maxBid;
-  G.auctionTrack = [];
+
+  G.players.forEach(player => {
+    player.bid = null;
+    player.pass = false;
+  });
 
   if (G.players.every(player => player.suns.length == 0)) {
     EndEpoch(G);

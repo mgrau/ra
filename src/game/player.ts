@@ -5,6 +5,7 @@ export interface Player {
   suns: number[];
   usedSuns: number[];
   bid: number;
+  pass: boolean;
   tiles: Tile[];
 }
 
@@ -14,6 +15,7 @@ export default function SetupPlayer(playerID: number, suns: number[]): Player {
     suns: suns,
     usedSuns: [],
     bid: null,
+    pass: false;
     tiles: []
   };
 }

@@ -1,0 +1,14 @@
+#players .player {
+  border-radius: 1vh;
+  box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
+  margin: 1vh;
+  padding: 1vh;
+}
+
+#players .player.active {
+  box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.5);
+}
+
+#players .player .suns {
+  display: flex;
+}

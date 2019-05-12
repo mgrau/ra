@@ -63,17 +63,14 @@ export default function Tiles() {
   for (var i: number = 0; i < 25; i++) {
     tiles.push(<Tile>{ tileType: TileType.Pharaoh });
   }
-  // most pharaoh tiles is worth 5 points, least is -2 points
-  // is all players tie, no point change
 
-  // 5 gold tiles - 3 points
+  // 5 gold tiles
   for (var i: number = 0; i < 5; i++) {
     tiles.push(<Tile>{ tileType: TileType.Gold });
   }
 
   // 8 god tiles
   // named anubis, bastet, khnum, horus, seth, sobek, thoth, uto
-  // 2 points
   tiles.push(<Tile>{ tileType: TileType.God, subType: "Anubis" });
   tiles.push(<Tile>{ tileType: TileType.God, subType: "Bastet" });
   tiles.push(<Tile>{ tileType: TileType.God, subType: "Khnum" });
@@ -92,7 +89,6 @@ export default function Tiles() {
   for (var i: number = 0; i < 12; i++) {
     tiles.push(<Tile>{ tileType: TileType.River, subType: RiverType.flood });
   }
-  // 1 point per river tile (nile and flood) is have at least one flood tile
 
   // civilization tiles
   // 5 astronomy tiles
@@ -100,10 +96,6 @@ export default function Tiles() {
   // 5 writing tiles
   // 5 religion tiles
   // 5 art tiles
-  // 0 tiles is -5 points
-  // 3 different is 5
-  // 4 different is 10
-  // 5 different is 15
   for (var i: number = 0; i < 5; i++) {
     tiles.push(<Tile>{
       tileType: TileType.Civilization,
@@ -170,10 +162,6 @@ export default function Tiles() {
       subType: MonumentType.temple
     });
   }
-  // each group of 3 is worth 5
-  // each group of 4 is worth 10
-  // each group of 5 is worth 15
-  // 1,2,3,4,5,6,10,15 points for 1,2,3,4,5,6,7,8 different monuments
 
   // disasters
   // 4 war tiles - discard 2 civilization tiles
@@ -211,5 +199,3 @@ export default function Tiles() {
 
   return tiles;
 }
-// highest total sun disks is 5 points
-// lowest total is -5 points

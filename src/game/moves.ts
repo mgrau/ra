@@ -27,14 +27,43 @@ export function invoke(G: GameState, ctx) {
   ctx.events.endPhase({ next: "Auction" });
 }
 
-export function god(G: GameState, ctx) {}
+export function god(G: GameState, ctx, tileIndex: number[]) {
+  let playerTiles = G.players[ctx.currentPlayer].tiles;
+  if (tileIndex.length == 0) {
+    console.log("must specify at least one tile to take");
+    return INVALID_MOVE;
+  }
 
-export function canPass(G: GameState, ctx) {
-  return !(
-    ctx.currentPlayer == G.ra &&
-    G.auctionTrack.length < 8 &&
-    G.players.every(player => player.bid == null)
+  if (
+    !tileIndex.every(index => Object.keys(G.auctionTrack).includes(index + ""))
+  ) {
+    console.log("must select a valid tile on the auction track");
+    return INVALID_MOVE;
+  }
+
+  if (
+    playerTiles.filter(tile => tile.tileType == TileType.God).length <
+    tileIndex.length
+  ) {
+    console.log("don't have enough god tiles");
+    return INVALID_MOVE;
+  }
+
+  // selected tiles from auction track
+  const tiles = G.auctionTrack.filter((tile, index) =>
+    tileIndex.includes(index)
   );
+
+  // discard god tiles
+  tileIndex.forEach(tile => (playerTiles = discardGod(playerTiles)));
+
+  // remove tiles from auction track
+  G.auctionTrack = G.auctionTrack.filter(
+    (tile, index) => !tileIndex.includes(index)
+  );
+
+  // add tiles to player's tiles
+  G.players[ctx.currentPlayer].tiles = [...playerTiles, ...tiles];
 }
 
 export function pass(G: GameState, ctx) {
@@ -57,4 +86,20 @@ export function bid(G: GameState, ctx, bid: number) {
     console.log("invalid bid");
     return INVALID_MOVE;
   }
+}
+
+export function canPass(G: GameState, ctx) {
+  return !(
+    ctx.currentPlayer == G.ra &&
+    G.auctionTrack.length < 8 &&
+    G.players.every(player => player.bid == null)
+  );
+}
+
+function discardGod(tiles: Tile[]) {
+  const index = tiles.findIndex(tile => tile.tileType == TileType.God);
+  if (index > 0) {
+    tiles.splice(index, 1);
+  }
+  return tiles;
 }

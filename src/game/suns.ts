@@ -8,7 +8,5 @@ export default function StartingSuns(numPlayers: number) {
       return [[13, 6, 2], [12, 7, 3], [11, 8, 4], [10, 9, 5]];
     case 5:
       return [[16, 7, 2], [15, 8, 3], [14, 9, 4], [13, 10, 5], [12, 11, 6]];
-    default:
-      return [];
   }
 }

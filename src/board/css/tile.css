@@ -11,6 +11,12 @@
   align-items: center;
 }
 
+.tile.space {
+  border: 5px solid #eee;
+  box-shadow: none;
+  background: #eee;
+}
+
 .tile.Ra {
   border-color: rgb(134, 18, 18);
 }

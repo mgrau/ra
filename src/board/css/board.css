@@ -17,6 +17,8 @@
 
   display: grid;
   grid-template-columns: repeat(8, 10vh);
+  justify-items: center;
+  align-items: center;
   grid-gap: 1vh;
   padding: 1vh;
 }
@@ -27,6 +29,8 @@
 
   display: grid;
   grid-template-columns: repeat(8, 10vh);
+  justify-items: center;
+  align-items: center;
   grid-gap: 1vh;
   padding: 1vh;
 }

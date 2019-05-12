@@ -10,9 +10,17 @@ export default class RaBoard extends React.Component {
       <Tile key={index} {...tile} />
     ));
 
+    const raSpaces = [...Array(8 - this.props.G.raTrack.length).keys()].map(
+      (tile, index) => <div key={index + 8} className="tile space" />
+    );
+
     const auctionTrack = this.props.G.auctionTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
     ));
+
+    const auctionSpaces = [
+      ...Array(8 - this.props.G.auctionTrack.length).keys()
+    ].map((tile, index) => <div key={index + 8} className="tile space" />);
 
     const players = this.props.G.players.map((player, index) => (
       <Player
@@ -29,11 +37,17 @@ export default class RaBoard extends React.Component {
       <div>
         {this.props.ctx.phase}
         <div id="ra-board">
-          <div id="ra-track">{raTrack}</div>
+          <div id="ra-track">
+            {raTrack}
+            {raSpaces}
+          </div>
           <div id="sun-space">
             <Sun value={this.props.G.sun} />
           </div>
-          <div id="auction-track">{auctionTrack}</div>
+          <div id="auction-track">
+            {auctionTrack}
+            {auctionSpaces}
+          </div>
         </div>
         <div id="players">{players}</div>
       </div>

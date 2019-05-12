@@ -9,13 +9,17 @@ export interface Player {
   tiles: Tile[];
 }
 
+export function Players(playerSuns: number[][]): Player[] {
+  return playerSuns.map((suns, index) => SetupPlayer(index, suns));
+}
+
 export default function SetupPlayer(playerID: number, suns: number[]): Player {
   return {
     points: 10,
     suns: suns,
     usedSuns: [],
     bid: null,
-    pass: false;
+    pass: false,
     tiles: []
   };
 }

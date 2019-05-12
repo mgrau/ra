@@ -71,3 +71,31 @@ function SubCount(
 ): number {
   return tiles.filter(tile => tile.subType == type).length;
 }
+
+// pharaoh tiles
+// most pharaoh tiles is worth 5 points, least is -2 points
+// if all players tie, no point change
+
+// gold tiles
+// 3 points
+
+// god tiles
+// 2 points
+
+// river tiles
+// 1 point per river tile (nile and flood) is have at least one flood tile
+
+// civilization tiles
+// 0 tiles is -5 points
+// 3 different is 5
+// 4 different is 10
+// 5 different is 15
+
+// monument tiles
+// each group of 3 is worth 5
+// each group of 4 is worth 10
+// each group of 5 is worth 15
+// 1,2,3,4,5,6,10,15 points for 1,2,3,4,5,6,7,8 different monuments
+
+// highest total sun disks is 5 points
+// lowest total is -5 points

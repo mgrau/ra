@@ -2,38 +2,16 @@ import { Game } from "boardgame.io/core";
 import { draw, invoke, god, pass, bid } from "./moves";
 import Tiles, { Tile } from "./tile";
 import StartingSuns from "./suns";
-import SetupPlayer, { Player } from "./player";
 import AuctionEnd from "./auction";
 import TurnOrder from "./order";
-export interface GameState {
-  epoch: number;
-  sun: number;
-  ra: number;
-  players: Player[];
-  raTrack: Tile[];
-  auctionTrack: Tile[];
-  tiles: Tile[];
-}
+import Setup, { GameState } from "./setup";
 
 export const Ra = Game({
-  setup: ctx => {
-    const suns: number[][] = ctx.random.Shuffle(StartingSuns(ctx.numPlayers));
-    const players: Player[] = [];
-    for (var i: number = 0; i < ctx.numPlayers; i++) {
-      players[i] = SetupPlayer(i, suns[i]);
-    }
-    const G: GameState = {
-      epoch: 1,
-      sun: 1,
-      ra: null,
-      players: players,
-      raTrack: [],
-      auctionTrack: [],
-      tiles: ctx.random.Shuffle(Tiles())
-    };
-    return G;
-  },
-
+  setup: ctx =>
+    Setup(
+      ctx.random.Shuffle(StartingSuns(ctx.numPlayers)),
+      ctx.random.Shuffle(Tiles())
+    ),
   moves: {
     draw,
     invoke,

@@ -1,6 +1,6 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import { Tile, TileType } from "./tile";
-import { GameState } from "./game";
+import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 
 export function draw(G: GameState, ctx) {

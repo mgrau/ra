@@ -1,5 +1,6 @@
 import React from "react";
 
+import "./css/actions.css";
 export default class Actions extends React.PureComponent {
   render() {
     let buttons = [];

@@ -9,7 +9,7 @@ test("draw", () => {
     setup: ctx => Setup([[2], [3]], [<Tile>{ tileType: TileType.Ra }, <Tile>{}])
   };
 
-  const client = Client({ game: RaTest });
+  const client: any = Client({ game: RaTest });
 
   client.moves.draw();
   var store: { G: GameState; ctx: any };

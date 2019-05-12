@@ -1,4 +1,4 @@
-import { GameState } from "./game";
+import { GameState } from "./setup";
 import { TileType, RiverType } from "./tile";
 import Score from "./score";
 

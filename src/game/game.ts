@@ -44,18 +44,3 @@ export const Ra = Game({
     // endGameIf: (G: GameState) => G.epoch > 3
   }
 });
-
-export interface Ctx {
-  numPlayers: number;
-  turn: number;
-  currentPlayer: string;
-  actionPlayers: string[];
-  currentPlayerMoves: number;
-  playOrder: string[];
-  playOrderPos: number;
-  stats: any;
-  allPlayed: boolean;
-  phase: string;
-  prePhase: string;
-  allowedMoves: string[];
-}

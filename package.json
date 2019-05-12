@@ -5,20 +5,26 @@
   "main": "index.jsx",
   "scripts": {
     "start": "parcel local.html",
-    "test": "cross-env NODE_ENV=test jest --no-cache"
+    "test": "cross-env NODE_ENV=test jest --no-cache",
+    "test:coverage": "cross-env NODE_ENV=test jest --no-cache --coverage"
   },
   "author": "Matt Grau",
   "license": "ISC",
   "dependencies": {
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.12",
+    "babel": "^6.23.0",
     "boardgame.io": "^0.31.5",
     "parcel-bundler": "^1.12.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^6.26.3",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "jest": "^24.8.0",

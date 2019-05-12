@@ -9,7 +9,7 @@ test("draw", () => {
     setup: ctx => Setup([[2], [3]], [<Tile>{ tileType: TileType.Ra }, <Tile>{}])
   };
 
-  const client: any = Client({ game: RaTest });
+  const client = Client({ game: RaTest });
 
   client.moves.draw();
   var store: { G: GameState; ctx: any };
@@ -25,4 +25,23 @@ test("draw", () => {
   expect(store.G.auctionTrack.length).toBe(1);
   expect(store.G.tiles.length).toBe(0);
   expect(store.ctx.phase).toBe("Auction");
+});
+
+test("invoke", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => Setup([[2], [3], [4]], [<Tile>{}])
+  };
+
+  const client: any = Client({ game: RaTest });
+  var store: { G: GameState; ctx: any };
+
+  store = client.store.getState();
+  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.invoke();
+  store = client.store.getState();
+  expect(store.ctx.phase).toBe("Auction");
+  expect(store.ctx.currentPlayer).toBe("1");
 });

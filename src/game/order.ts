@@ -11,7 +11,7 @@ const TurnOrder = {
   next: (G: GameState, ctx) => {
     const playOrder = Array.from(
       { length: ctx.numPlayers },
-      (x, pos) => (pos + ctx.currentPlayer + 1) % ctx.numPlayers
+      (x, pos) => (pos + parseInt(ctx.currentPlayer) + 1) % ctx.numPlayers
     );
     return playOrder.find(pos => G.players[pos].suns.length > 0);
   }

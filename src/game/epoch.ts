@@ -2,7 +2,7 @@ import { GameState } from "./setup";
 import { TileType, RiverType } from "./tile";
 import Score from "./score";
 
-export default function EndEpoch(G: GameState) {
+export default function EndEpoch(G: GameState, ctx) {
   G.epoch += 1;
   G.raTrack = [];
   G.auctionTrack = [];
@@ -14,6 +14,10 @@ export default function EndEpoch(G: GameState) {
   DiscardTiles(G);
 
   // Player with highest numbered sun disk takes the first turn
+
+  if (G.epoch > 3) {
+    ctx.events.endGame();
+  }
 }
 
 function FlipSuns(G: GameState) {

@@ -11,7 +11,7 @@ export function draw(G: GameState, ctx) {
       if (G.raTrack.length < 8) {
         ctx.events.endPhase({ next: "Auction" });
       } else {
-        EndEpoch(G);
+        EndEpoch(G, ctx);
       }
     } else {
       G.auctionTrack = [...G.auctionTrack, tile];

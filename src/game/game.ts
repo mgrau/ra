@@ -36,11 +36,9 @@ export const Ra = Game({
             player =>
               player.bid != null || player.pass || player.suns.length == 0
           ),
-        onPhaseEnd: (G: GameState) => AuctionEnd(G)
+        onPhaseEnd: (G: GameState, ctx) => AuctionEnd(G, ctx)
       }
     },
     turnOrder: TurnOrder
-
-    // endGameIf: (G: GameState) => G.epoch > 3
   }
 });

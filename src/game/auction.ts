@@ -2,7 +2,7 @@ import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 import { Tile, TileType, DisasterType, RiverType } from "./tile";
 
-export default function AuctionEnd(G: GameState) {
+export default function AuctionEnd(G: GameState, ctx) {
   G.ra = null;
   const maxBid = Math.max(...G.players.map(player => player.bid));
   const winner = G.players.find(player => player.bid == maxBid);
@@ -48,7 +48,7 @@ export default function AuctionEnd(G: GameState) {
   });
 
   if (G.players.every(player => player.suns.length == 0)) {
-    EndEpoch(G);
+    EndEpoch(G, ctx);
   }
   return G;
 }

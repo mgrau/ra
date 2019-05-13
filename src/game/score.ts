@@ -38,13 +38,10 @@ export default function Score(G: GameState) {
     if (Count(tiles, TileType.Civilization) == 0) {
       player.points -= 5;
     }
-    const numCivilizationTypes = [
-      ...new Set(
-        tiles
-          .filter(tile => tile.tileType == TileType.Civilization)
-          .map(tile => tile.subType)
-      )
-    ].length;
+    const numCivilizationTypes = tiles
+      .filter(tile => tile.tileType == TileType.Civilization)
+      .map(tile => tile.subType)
+      .filter((value, index, self) => self.indexOf(value) == index).length;
 
     if (numCivilizationTypes >= 3) {
       player.points += 5 * (numCivilizationTypes - 2);

@@ -3,7 +3,6 @@ import { TileType, RiverType } from "./tile";
 import Score from "./score";
 
 export default function EndEpoch(G: GameState, ctx) {
-  G.epoch += 1;
   G.raTrack = [];
   G.auctionTrack = [];
 
@@ -14,9 +13,14 @@ export default function EndEpoch(G: GameState, ctx) {
   DiscardTiles(G);
 
   // Player with highest numbered sun disk takes the first turn
+  const maxSuns = G.players.map(player => Math.max(...player.suns));
+  ctx.events.endTurn(maxSuns.indexOf(Math.max(...maxSuns)));
 
-  if (G.epoch > 3) {
+  // end the game if
+  if (G.epoch == 3) {
     ctx.events.endGame();
+  } else {
+    G.epoch += 1;
   }
 }
 

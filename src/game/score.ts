@@ -39,7 +39,7 @@ export default function Score(G: GameState) {
       player.points -= 5;
     }
     const numCivilizationTypes = [
-      new Set(
+      ...new Set(
         tiles
           .filter(tile => tile.tileType == TileType.Civilization)
           .map(tile => tile.subType)
@@ -47,7 +47,7 @@ export default function Score(G: GameState) {
     ].length;
 
     if (numCivilizationTypes >= 3) {
-      player.points += 5 * numCivilizationTypes;
+      player.points += 5 * (numCivilizationTypes - 2);
     }
 
     if (Math.max(...sunTotal) != Math.min(...sunTotal)) {

@@ -63,7 +63,9 @@ test("drought discard", () => {
           <Tile>{ tileType: TileType.River, subType: RiverType.flood },
           <Tile>{ tileType: TileType.Gold }
         ],
-        tiles: []
+        tiles: [
+          <Tile>{ tileType: TileType.Disaster, subType: DisasterType.drought }
+        ]
       };
       return G;
     }
@@ -100,6 +102,23 @@ test("drought discard", () => {
     <Tile>{ tileType: TileType.River, subType: RiverType.nile },
     <Tile>{ tileType: TileType.Gold }
   ]);
+
+  client.moves.draw();
+  client.moves.invoke();
+  client.moves.pass();
+
+  client.moves.bid(3);
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+  expect(store.ctx.phase).toBe("Auction");
+  expect(store.G.auctionTrack.length).toBe(1);
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.ctx.phase).toBe("Action");
+  expect(store.G.auctionTrack.length).toBe(0);
+  expect(store.G.players[1].tiles.length).toBe(0);
 });
 
 test("funeral discard", () => {
@@ -168,7 +187,9 @@ test("war discard", () => {
             subType: CivilizationType.art
           }
         ],
-        tiles: []
+        tiles: [
+          <Tile>{ tileType: TileType.Disaster, subType: DisasterType.war }
+        ]
       };
       return G;
     }
@@ -191,6 +212,27 @@ test("war discard", () => {
       subType: CivilizationType.art
     }
   ]);
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.G.auctionTrack.length).toBe(1);
+
+  client.moves.invoke();
+  store = client.store.getState();
+  expect(store.ctx.phase).toBe("Auction");
+  expect(store.ctx.currentPlayer).toBe("1");
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.bid(2);
+  store = client.store.getState();
+  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.currentPlayer).toBe("1");
+  expect(store.G.auctionTrack.length).toBe(0);
+  expect(store.G.players[0].tiles.length).toBe(0);
 });
 
 test("earthquake discard", () => {
@@ -233,4 +275,120 @@ test("earthquake discard", () => {
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles.length).toBe(0);
   expect(store.G.players[0].tiles).toStrictEqual([]);
+});
+
+test("discard auction track", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => {
+      const players = Players([[2, 11], [5, 10], [3, 4]]);
+      const G: GameState = {
+        epoch: 1,
+        sun: 1,
+        ra: null,
+        players: players,
+        raTrack: [],
+        auctionTrack: [
+          <Tile>{},
+          <Tile>{},
+          <Tile>{},
+          <Tile>{},
+          <Tile>{},
+          <Tile>{},
+          <Tile>{}
+        ],
+        tiles: [<Tile>{}, <Tile>{}]
+      };
+      return G;
+    }
+  };
+
+  const client: any = Client({ numPlayers: 3, game: RaTest });
+
+  var store: { G: GameState; ctx: any };
+  store = client.store.getState();
+  expect(store.G.auctionTrack.length).toBe(7);
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("1");
+  expect(store.G.auctionTrack.length).toBe(8);
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("1");
+  expect(store.G.auctionTrack.length).toBe(8);
+
+  client.moves.invoke();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("1");
+  expect(store.G.auctionTrack.length).toBe(8);
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+  expect(store.G.auctionTrack.length).toBe(0);
+});
+
+test("no suns end epoch", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => {
+      const players = Players([[3], [], [2]]);
+      const G: GameState = {
+        epoch: 1,
+        sun: 1,
+        ra: null,
+        players: players,
+        raTrack: [],
+        auctionTrack: [<Tile>{}],
+        tiles: [<Tile>{}, <Tile>{}, <Tile>{}]
+      };
+      return G;
+    }
+  };
+
+  const client: any = Client({ numPlayers: 3, game: RaTest });
+
+  var store: { G: GameState; ctx: any };
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.invoke();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+
+  client.moves.pass();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.bid(3);
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+  expect(store.G.sun).toBe(3);
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+  expect(store.G.epoch).toBe(1);
+
+  client.moves.invoke();
+  client.moves.pass();
+  client.moves.pass();
+  client.moves.bid(2);
+  store = client.store.getState();
+  expect(store.G.sun).toBe(2);
+  expect(store.G.epoch).toBe(2);
 });

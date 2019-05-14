@@ -96,9 +96,9 @@ export function canPass(G: GameState, ctx) {
   );
 }
 
-function discardGod(tiles: Tile[]) {
+export function discardGod(tiles: Tile[]) {
   const index = tiles.findIndex(tile => tile.tileType == TileType.God);
-  if (index > 0) {
+  if (index >= 0) {
     tiles.splice(index, 1);
   }
   return tiles;

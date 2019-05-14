@@ -2,6 +2,7 @@
   "name": "ra",
   "version": "0.0.1",
   "description": "ra is a fun game where you bid in auctions",
+  "repository": "https://github.com/mgrau/ra",
   "main": "index.jsx",
   "scripts": {
     "start": "parcel local.html",

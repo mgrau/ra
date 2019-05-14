@@ -55,7 +55,7 @@ export default function AuctionEnd(G: GameState, ctx) {
 
 function DiscardPharaoh(tiles: Tile[]) {
   const index = tiles.findIndex(tile => tile.tileType == TileType.Pharaoh);
-  if (index > 0) {
+  if (index >= 0) {
     tiles.splice(index, 1);
   }
   return tiles;
@@ -63,11 +63,11 @@ function DiscardPharaoh(tiles: Tile[]) {
 
 function DiscardRiver(tiles: Tile[]) {
   const floodIndex = tiles.findIndex(tile => tile.subType == RiverType.flood);
-  if (floodIndex > 0) {
+  if (floodIndex >= 0) {
     tiles.splice(floodIndex, 1);
   } else {
     const nileIndex = tiles.findIndex(tile => tile.subType == RiverType.nile);
-    if (nileIndex > 0) {
+    if (nileIndex >= 0) {
       tiles.splice(nileIndex, 1);
     }
   }
@@ -76,7 +76,7 @@ function DiscardRiver(tiles: Tile[]) {
 
 function DiscardCivilization(tiles: Tile[]) {
   const index = tiles.findIndex(tile => tile.tileType == TileType.Civilization);
-  if (index > 0) {
+  if (index >= 0) {
     tiles.splice(index, 1);
   }
   return tiles;
@@ -84,7 +84,7 @@ function DiscardCivilization(tiles: Tile[]) {
 
 function DiscardMonument(tiles: Tile[]) {
   const index = tiles.findIndex(tile => tile.tileType == TileType.Monument);
-  if (index > 0) {
+  if (index >= 0) {
     tiles.splice(index, 1);
   }
   return tiles;

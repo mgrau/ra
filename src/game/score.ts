@@ -6,6 +6,18 @@ import {
   CivilizationType,
   MonumentType
 } from "./tile";
+import { CoverageMap } from "istanbul-lib-coverage";
+
+export interface Score {
+  pharaohs: number;
+  gold: number;
+  gods: number;
+  river: number;
+  civilization: number;
+  suns: number;
+  monument: number;
+  total: number;
+}
 
 export default function Score(G: GameState) {
   const pharaohs = G.players.map(player =>
@@ -17,26 +29,37 @@ export default function Score(G: GameState) {
   );
 
   G.players.forEach(player => {
+    const score = <Score>{
+      pharaohs: 0,
+      gold: 0,
+      gods: 0,
+      river: 0,
+      civilization: 0,
+      suns: 0,
+      monument: 0,
+      total: 0
+    };
     const tiles = player.tiles;
 
     if (Math.max(...pharaohs) != Math.min(...pharaohs)) {
       if (Count(tiles, TileType.Pharaoh) == Math.max(...pharaohs)) {
-        player.points += 5;
+        score.pharaohs = 5;
       }
       if (Count(tiles, TileType.Pharaoh) == Math.min(...pharaohs)) {
-        player.points -= 2;
+        score.pharaohs = -2;
       }
     }
-    player.points += 3 * Count(tiles, TileType.Gold);
 
-    player.points += 2 * Count(tiles, TileType.God);
+    score.gold = 3 * Count(tiles, TileType.Gold);
+
+    score.gods = 2 * Count(tiles, TileType.God);
 
     if (SubCount(tiles, RiverType.flood) > 0) {
-      player.points += Count(tiles, TileType.River);
+      score.river = Count(tiles, TileType.River);
     }
 
     if (Count(tiles, TileType.Civilization) == 0) {
-      player.points -= 5;
+      score.civilization = -5;
     }
     const numCivilizationTypes = tiles
       .filter(tile => tile.tileType == TileType.Civilization)
@@ -44,17 +67,54 @@ export default function Score(G: GameState) {
       .filter((value, index, self) => self.indexOf(value) == index).length;
 
     if (numCivilizationTypes >= 3) {
-      player.points += 5 * (numCivilizationTypes - 2);
+      score.civilization = 5 * (numCivilizationTypes - 2);
     }
 
-    if (Math.max(...sunTotal) != Math.min(...sunTotal)) {
-      if (player.suns.reduce((a, b) => a + b, 0) == Math.max(...sunTotal)) {
-        player.points += 5;
+    if (G.epoch == 3) {
+      if (Math.max(...sunTotal) != Math.min(...sunTotal)) {
+        if (player.suns.reduce((a, b) => a + b, 0) == Math.max(...sunTotal)) {
+          score.suns = 5;
+        }
+        if (player.suns.reduce((a, b) => a + b, 0) == Math.min(...sunTotal)) {
+          score.suns = -5;
+        }
       }
-      if (player.suns.reduce((a, b) => a + b, 0) == Math.min(...sunTotal)) {
-        player.points -= 5;
+
+      Object.keys(MonumentType).forEach(monumentType => {
+        switch (SubCount(tiles, <MonumentType>monumentType)) {
+          case 5:
+            score.monument += 15;
+            break;
+          case 4:
+            score.monument += 10;
+            break;
+          case 3:
+            score.monument += 5;
+            break;
+          default:
+        }
+      });
+      const numMonumentTypes = tiles
+        .filter(tile => tile.tileType == TileType.Monument)
+        .map(tile => tile.subType)
+        .filter((value, index, self) => self.indexOf(value) == index).length;
+
+      if (numMonumentTypes <= 6) {
+        score.monument += numMonumentTypes;
+      }
+      if (numMonumentTypes == 7) {
+        score.monument += 10;
+      }
+      if (numMonumentTypes == 8) {
+        score.monument += 15;
       }
     }
+
+    score.total = Object.keys(score)
+      .map(key => score[key])
+      .reduce((a, b) => a + b);
+    player.points = Math.max(0, player.points + score.total);
+    player.score[G.epoch - 1] = score;
   });
 }
 

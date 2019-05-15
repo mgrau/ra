@@ -1,7 +1,8 @@
 import { Tile } from "./tile";
-
+import { Score } from "./score";
 export interface Player {
   points: number;
+  score: Score[];
   suns: number[];
   usedSuns: number[];
   bid: number;
@@ -16,6 +17,7 @@ export function Players(playerSuns: number[][]): Player[] {
 export default function SetupPlayer(playerID: number, suns: number[]): Player {
   return {
     points: 10,
+    score: [],
     suns: suns,
     usedSuns: [],
     bid: null,

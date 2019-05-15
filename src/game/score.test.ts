@@ -379,6 +379,6 @@ test("score suns equal", () => {
   client.moves.bid(2);
   store = client.store.getState();
   expect(store.G.epoch).toBe(3);
-  expect(store.G.players[0].score[1].suns).toBe(0);
-  expect(store.G.players[1].score[1].suns).toBe(0);
+  expect(store.G.players[0].score[2].suns).toBe(0);
+  expect(store.G.players[1].score[2].suns).toBe(0);
 });

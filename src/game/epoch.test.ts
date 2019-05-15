@@ -43,4 +43,5 @@ test("game end", () => {
   store = client.store.getState();
   expect(store.G.epoch).toBe(3);
   expect(store.ctx.gameover).toBeDefined();
+  expect(store.ctx.gameover.winner).toBe(2);
 });

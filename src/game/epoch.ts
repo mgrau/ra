@@ -18,7 +18,8 @@ export default function EndEpoch(G: GameState, ctx) {
 
   // end the game if
   if (G.epoch == 3) {
-    ctx.events.endGame();
+    const points = G.players.map(player => player.points);
+    ctx.events.endGame({ winner: points.indexOf(Math.max(...points)) });
   } else {
     G.epoch += 1;
   }

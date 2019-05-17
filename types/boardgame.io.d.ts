@@ -105,7 +105,7 @@ declare module "boardgame.io/react" {
   }
   interface IClientArgs {
     game: any;
-    numPlayer?: number;
+    numPlayers?: number;
     board?: React.ReactNode;
     multiplayer?: boolean;
     debug?: boolean;
@@ -135,7 +135,7 @@ declare module "boardgame.io/client" {
   }
   interface IClientArgs {
     game: any;
-    numPlayer?: number;
+    numPlayers?: number;
     board?: React.ReactNode;
     multiplayer?: boolean;
     debug?: boolean;

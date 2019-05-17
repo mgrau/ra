@@ -1,9 +1,9 @@
-import { INVALID_MOVE } from "boardgame.io/core";
+import { INVALID_MOVE, IGameCtx } from "boardgame.io/core";
 import { Tile, TileType } from "./tile";
 import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 
-export function draw(G: GameState, ctx) {
+export function draw(G: GameState, ctx: IGameCtx) {
   if (G.auctionTrack.length < 8) {
     const tile: Tile = G.tiles.pop();
     if (tile.tileType == TileType.Ra) {

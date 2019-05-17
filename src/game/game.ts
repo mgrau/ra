@@ -1,13 +1,13 @@
-import { Game } from "boardgame.io/core";
+import { Game, IGameCtx } from "boardgame.io/core";
 import { draw, invoke, god, pass, bid } from "./moves";
-import Tiles, { Tile } from "./tile";
+import Tiles from "./tile";
 import StartingSuns from "./suns";
 import AuctionEnd from "./auction";
 import TurnOrder from "./order";
 import Setup, { GameState } from "./setup";
 
 export const Ra = Game({
-  setup: ctx =>
+  setup: (ctx: IGameCtx) =>
     Setup(
       ctx.random.Shuffle(StartingSuns(ctx.numPlayers)),
       ctx.random.Shuffle(Tiles())

@@ -8,7 +8,6 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
   const maxBid = Math.max(...G.players.map(player => player.bid));
   const winner = G.players.find(player => player.bid == maxBid);
   if (winner == undefined) {
-    // this should depend on ctx.numPlayeyer
     if (G.auctionTrack.length >= 8) {
       G.auctionTrack = [];
     }

@@ -5,6 +5,7 @@ import StartingSuns from "./suns";
 import AuctionEnd from "./auction";
 import TurnOrder from "./order";
 import Setup, { GameState } from "./setup";
+import StripSecrets from "./secrets";
 
 export const Ra = Game({
   setup: (ctx: IGameCtx) =>
@@ -12,6 +13,8 @@ export const Ra = Game({
       ctx.random.Shuffle(StartingSuns(ctx.numPlayers)),
       ctx.random.Shuffle(Tiles())
     ),
+  playerView: (G: GameState, ctx: IGameCtx, playerID: string) =>
+    StripSecrets(G, playerID),
   moves: {
     draw,
     invoke,

@@ -7,7 +7,6 @@
   - perhaps when they bid, so as not to have to deal with turn sequence
 - resolve disaster tiles when obtained using a god tile.
 - add test that score can't go negative
-- hide information from players
 - prevent underbids.
 - resolve tie for points. The player with highest numbered sun disk wins.
 

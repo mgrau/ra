@@ -88,6 +88,10 @@ export function bid(G: GameState, ctx: IGameCtx, bid: number) {
   }
 }
 
+export function discard(G: GameState, ctx: IGameCtx) {
+  console.log("discard");
+}
+
 export function raTrackLength(numPlayers: number): number {
   switch (numPlayers) {
     case 2:

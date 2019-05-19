@@ -62,7 +62,7 @@ declare module "boardgame.io/core" {
     [key: string]: (G: TGameState, ctx: IGameCtx, ...args: any[]) => void;
   }
   interface IGameFlowPhase<TGameState> {
-    movesPerTurn: number;
+    movesPerTurn?: number;
     allowedMoves: string[];
     endPhaseIf?: (G: TGameState, ctx: IGameCtx) => boolean;
     onPhaseEnd?: (G: TGameState, ctx: IGameCtx) => void;

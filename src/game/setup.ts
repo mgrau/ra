@@ -4,7 +4,7 @@ import { Tile } from "./tile";
 export interface GameState {
   epoch: number;
   sun: number;
-  ra: number;
+  ra: string;
   players: Player[];
   raTrack: Tile[];
   auctionTrack: Tile[];

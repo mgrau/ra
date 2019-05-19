@@ -26,11 +26,11 @@ export const Ra = Game({
     endPhase: false,
     phases: {
       Action: {
-        // movesPerTurn: 1,
+        movesPerTurn: 1,
         allowedMoves: ["draw", "invoke", "god"]
       },
       Auction: {
-        // movesPerTurn: 1,
+        movesPerTurn: 1,
         allowedMoves: ["pass", "bid"],
         endPhaseIf: (G: GameState, ctx) =>
           G.players.every(

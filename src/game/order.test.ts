@@ -171,3 +171,52 @@ test("order end of epoch", () => {
   expect(store.G.epoch).toBe(2);
   expect(store.ctx.currentPlayer).toBe("2");
 });
+
+test("order end of epoch suns", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => {
+      const players = Players([[2], [3], [4]]);
+      const G: GameState = {
+        epoch: 1,
+        sun: 1,
+        ra: null,
+        players: players,
+        raTrack: [],
+        auctionTrack: [],
+        tiles: []
+      };
+      return G;
+    }
+  };
+
+  const client: any = Client({ numPlayers: 3, game: RaTest });
+
+  var store: { G: GameState; ctx: any };
+
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(1);
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.invoke();
+  client.moves.pass();
+  client.moves.pass();
+  client.moves.bid(2);
+
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("1");
+  client.moves.invoke();
+  client.moves.bid(4);
+  client.moves.pass();
+  client.moves.pass();
+
+  store = client.store.getState();
+  expect(store.ctx.currentPlayer).toBe("2");
+  client.moves.invoke();
+  client.moves.pass();
+  client.moves.bid(3);
+  client.moves.bid();
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(2);
+  expect(store.ctx.currentPlayer).toBe("1");
+});

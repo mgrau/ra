@@ -321,13 +321,13 @@ test("score monument", () => {
   expect(store.G.players[2].score[1].suns).toBe(0);
   expect(store.G.players[3].score[1].suns).toBe(0);
 
-  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.ctx.currentPlayer).toBe("3");
 
   client.moves.invoke();
-  client.moves.pass();
-  client.moves.pass();
-  client.moves.pass();
   client.moves.bid(1);
+  client.moves.pass();
+  client.moves.pass();
+  client.moves.pass();
   client.moves.invoke();
   client.moves.pass();
   client.moves.pass();
@@ -338,8 +338,8 @@ test("score monument", () => {
   client.moves.invoke();
   client.moves.bid(4);
   store = client.store.getState();
-  expect(store.ctx.gameover).toBeDefined();
   expect(store.G.epoch).toBe(3);
+  expect(store.ctx.gameover).toBeDefined();
   expect(store.G.players[0].score[2].monument).toBe(5 + 3);
   expect(store.G.players[1].score[2].monument).toBe(15 + 1);
   expect(store.G.players[2].score[2].monument).toBe(15);

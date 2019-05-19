@@ -1,5 +1,5 @@
 import { Game } from "boardgame.io/core";
-import { draw, invoke, god, pass, bid } from "./moves";
+import { draw, invoke, god, pass, bid, discard } from "./moves";
 import Tiles, { Tile } from "./tile";
 import StartingSuns from "./suns";
 import AuctionEnd from "./auction";
@@ -17,7 +17,8 @@ export const Ra = Game({
     invoke,
     god,
     pass,
-    bid
+    bid,
+    discard
   },
   flow: {
     startingPhase: "Action",
@@ -25,11 +26,11 @@ export const Ra = Game({
     endPhase: false,
     phases: {
       Action: {
-        movesPerTurn: 1,
+        // movesPerTurn: 1,
         allowedMoves: ["draw", "invoke", "god"]
       },
       Auction: {
-        movesPerTurn: 1,
+        // movesPerTurn: 1,
         allowedMoves: ["pass", "bid"],
         endPhaseIf: (G: GameState, ctx) =>
           G.players.every(
@@ -37,6 +38,9 @@ export const Ra = Game({
               player.bid != null || player.pass || player.suns.length == 0
           ),
         onPhaseEnd: (G: GameState, ctx) => AuctionEnd(G, ctx)
+      },
+      Discard: {
+        allowedMoves: ["discard"]
       }
     },
     turnOrder: TurnOrder

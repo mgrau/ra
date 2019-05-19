@@ -14,7 +14,9 @@ export default function EndEpoch(G: GameState, ctx) {
 
   // Player with highest numbered sun disk takes the first turn
   const maxSuns = G.players.map(player => Math.max(...player.suns));
+  // console.log({ next: "" + maxSuns.indexOf(Math.max(...maxSuns)) });
   ctx.events.endTurn({ next: "" + maxSuns.indexOf(Math.max(...maxSuns)) });
+  ctx.events.endPhase({ next: "Action" });
 
   // end the game if
   if (G.epoch == 3) {

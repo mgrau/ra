@@ -1,14 +1,14 @@
-import { INVALID_MOVE } from "boardgame.io/core";
+import { INVALID_MOVE, IGameCtx } from "boardgame.io/core";
 import { Tile, TileType } from "./tile";
 import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 
-export function draw(G: GameState, ctx) {
+export function draw(G: GameState, ctx: IGameCtx) {
   if (G.auctionTrack.length < 8) {
     const tile: Tile = G.tiles.pop();
     if (tile.tileType == TileType.Ra) {
       G.raTrack = [...G.raTrack, tile];
-      if (G.raTrack.length < 8) {
+      if (G.raTrack.length < raTrackLength(ctx.numPlayers)) {
         ctx.events.endPhase({ next: "Auction" });
       } else {
         EndEpoch(G, ctx);
@@ -22,12 +22,12 @@ export function draw(G: GameState, ctx) {
   }
 }
 
-export function invoke(G: GameState, ctx) {
+export function invoke(G: GameState, ctx: IGameCtx) {
   G.ra = ctx.currentPlayer;
   ctx.events.endPhase({ next: "Auction" });
 }
 
-export function god(G: GameState, ctx, tileIndex: number[]) {
+export function god(G: GameState, ctx: IGameCtx, tileIndex: number[]) {
   let playerTiles = G.players[ctx.currentPlayer].tiles;
   if (tileIndex.length == 0) {
     console.log("must specify at least one tile to take");
@@ -66,7 +66,7 @@ export function god(G: GameState, ctx, tileIndex: number[]) {
   G.players[ctx.currentPlayer].tiles = [...playerTiles, ...tiles];
 }
 
-export function pass(G: GameState, ctx) {
+export function pass(G: GameState, ctx: IGameCtx) {
   // Ra player is required to bid only if
   // they invoked Ra when the auction track
   // was not full and all other players have
@@ -79,7 +79,7 @@ export function pass(G: GameState, ctx) {
   G.players[ctx.currentPlayer].pass = true;
 }
 
-export function bid(G: GameState, ctx, bid: number) {
+export function bid(G: GameState, ctx: IGameCtx, bid: number) {
   if (G.players[ctx.currentPlayer].suns.includes(bid)) {
     G.players[ctx.currentPlayer].bid = bid;
   } else {
@@ -88,7 +88,20 @@ export function bid(G: GameState, ctx, bid: number) {
   }
 }
 
-export function canPass(G: GameState, ctx) {
+export function raTrackLength(numPlayers: number): number {
+  switch (numPlayers) {
+    case 2:
+      return 6;
+    case 3:
+      return 8;
+    case 4:
+      return 9;
+    case 5:
+      return 10;
+  }
+}
+
+export function canPass(G: GameState, ctx: IGameCtx) {
   return !(
     ctx.currentPlayer == G.ra &&
     G.auctionTrack.length < 8 &&

@@ -1,8 +1,9 @@
 import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 import { Tile, TileType, DisasterType, RiverType } from "./tile";
+import { IGameCtx } from "boardgame.io/core";
 
-export default function AuctionEnd(G: GameState, ctx) {
+export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
   G.ra = null;
   const maxBid = Math.max(...G.players.map(player => player.bid));
   const winner = G.players.find(player => player.bid == maxBid);

@@ -1,3 +1,7 @@
+:root {
+  --colNum: 10;
+}
+
 #ra-board {
   /* border: 1px solid gray; */
   border-radius: 1vh;
@@ -6,18 +10,18 @@
   grid-gap: 1vh;
   padding: 1vh;
   margin: 1vh;
-
-  width: 89vh;
+  justify-items: center;
+  width: 112vh;
   box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
 }
 
 #ra-track {
   border: 1px solid rgb(212, 172, 172);
   border-radius: 1vh;
-
   display: grid;
-  grid-template-columns: repeat(8, 10vh);
+  grid-template-columns: repeat(var(--colNum), 10vh);
   justify-items: center;
+  justify-content: center;
   align-items: center;
   grid-gap: 1vh;
   padding: 1vh;
@@ -26,10 +30,11 @@
 #auction-track {
   border: 1px solid rgb(169, 182, 218);
   border-radius: 1vh;
-
+  width: 87vh;
   display: grid;
   grid-template-columns: repeat(8, 10vh);
   justify-items: center;
+  justify-content: center;
   align-items: center;
   grid-gap: 1vh;
   padding: 1vh;

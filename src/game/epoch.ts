@@ -1,8 +1,9 @@
 import { GameState } from "./setup";
 import { TileType, RiverType } from "./tile";
 import Score from "./score";
+import { IGameCtx } from "boardgame.io/core";
 
-export default function EndEpoch(G: GameState, ctx) {
+export default function EndEpoch(G: GameState, ctx: IGameCtx) {
   G.raTrack = [];
   G.auctionTrack = [];
 

@@ -3,16 +3,25 @@ import Sun from "./sun";
 import Tile from "./tile";
 import Player from "./player";
 import "./css/board.css";
+import { raTrackLength } from "./../game/moves";
 
 export default class RaBoard extends React.Component {
+  componentDidMount() {
+    document.documentElement.style.setProperty(
+      "--colNum",
+      raTrackLength(this.props.ctx.numPlayers)
+    );
+  }
   render() {
     const raTrack = this.props.G.raTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
     ));
 
-    const raSpaces = [...Array(8 - this.props.G.raTrack.length).keys()].map(
-      (tile, index) => <div key={index + 8} className="tile space" />
-    );
+    const raSpaces = [
+      ...Array(
+        raTrackLength(this.props.ctx.numPlayers) - this.props.G.raTrack.length
+      ).keys()
+    ].map((tile, index) => <div key={index + 8} className="tile space" />);
 
     const auctionTrack = this.props.G.auctionTrack.map((tile, index) => (
       <Tile key={index} {...tile} />

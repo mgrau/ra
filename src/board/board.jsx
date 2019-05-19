@@ -37,6 +37,7 @@ export default class RaBoard extends React.Component {
         active={index == this.props.ctx.currentPlayer}
         playerID={index}
         {...player}
+        raPlayer={index == this.props.G.ra}
         auctionTrackLength={this.props.G.auctionTrack.length}
         allowedMoves={this.props.ctx.allowedMoves}
         moves={this.props.moves}

@@ -34,6 +34,8 @@ export default class Player extends React.Component {
   }
 
   render() {
+    const ra = this.props.raPlayer ? <span className="raPlayer">Ra!</span> : "";
+
     const suns = this.props.suns.map((sun, index) => (
       <Sun
         key={index}
@@ -61,7 +63,9 @@ export default class Player extends React.Component {
     );
     return (
       <div className={"player" + (this.props.active ? " active" : "")}>
-        <div>Player {this.props.playerID}</div>
+        <div>
+          {ra} Player {this.props.playerID}
+        </div>
         <div className="suns">
           {suns}
           {usedSuns}

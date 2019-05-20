@@ -61,6 +61,7 @@ export default class Player extends React.Component {
       <Actions
         pass={this.pass}
         auctionTrackLength={this.props.auctionTrackLength}
+        canPass={this.props.canPass}
         allowedMoves={this.props.allowedMoves}
         moves={this.props.moves}
       />

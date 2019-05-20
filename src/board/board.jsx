@@ -5,7 +5,7 @@ import Player from "./player";
 import "./css/board.css";
 import "./css/colors.css";
 import "@fortawesome/fontawesome-free/css/all";
-import { raTrackLength } from "./../game/moves";
+import { raTrackLength, canPass } from "./../game/moves";
 
 export default class RaBoard extends React.Component {
   componentDidMount() {
@@ -41,6 +41,7 @@ export default class RaBoard extends React.Component {
         {...player}
         raPlayer={index == this.props.G.ra}
         auctionTrackLength={this.props.G.auctionTrack.length}
+        canPass={canPass(this.props.G, this.props.ctx)}
         allowedMoves={this.props.ctx.allowedMoves}
         moves={this.props.moves}
       />

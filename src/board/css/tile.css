@@ -18,33 +18,33 @@
 }
 
 .tile.Ra {
-  border-color: rgb(134, 18, 18);
+  border-color: var(--ra);
 }
 
 .tile.River {
-  border-color: rgb(33, 96, 214);
+  border-color: var(--river);
 }
 
 .tile.Gold {
-  border-color: rgb(255, 208, 0);
+  border-color: var(--gold);
 }
 
 .tile.God {
-  border-color: rgb(255, 145, 0);
+  border-color: var(--god);
 }
 
 .tile.Monument {
-  border-color: rgb(41, 107, 138);
+  border-color: var(--monument);
 }
 
 .tile.Pharaoh {
-  border-color: rgb(36, 114, 55);
+  border-color: var(--pharaoh);
 }
 
 .tile.Civilization {
-  border-color: rgb(96, 118, 121);
+  border-color: var(--civilization);
 }
 
 .tile.Disaster {
-  border-color: rgb(0, 0, 0);
+  border-color: var(--disaster);
 }

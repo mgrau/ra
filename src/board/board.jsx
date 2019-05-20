@@ -3,6 +3,7 @@ import Sun from "./sun";
 import Tile from "./tile";
 import Player from "./player";
 import "./css/board.css";
+import "./css/colors.css";
 import { raTrackLength } from "./../game/moves";
 
 export default class RaBoard extends React.Component {

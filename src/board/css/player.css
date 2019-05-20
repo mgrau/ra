@@ -5,6 +5,10 @@
   padding: 1vh;
 }
 
+#players .player > div {
+  margin-bottom: 0.5vh;
+}
+
 #players .player .raPlayer {
   text-shadow: 0 0 0.2em #f87, 0 0 0.2em #f87;
 }
@@ -15,4 +19,68 @@
 
 #players .player .suns {
   display: flex;
+}
+
+#players .player .player-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#players .player .player-tiles .tile-header {
+  grid-column: 1/3;
+  margin-top: 1vh;
+}
+
+#players .player .player-tiles .sub-row {
+  margin-left: 1vh;
+}
+
+#players .player .player-tiles span {
+  border-radius: 0.3vh;
+  margin: 0.1vh;
+  width: 1.5vh;
+  height: 1.5vh;
+  display: inline-block;
+}
+
+#players .player .player-tiles .Pharaoh {
+  background-color: var(--pharaoh);
+}
+
+#players .player .player-tiles .Gold {
+  background-color: var(--gold);
+}
+
+#players .player .player-tiles .God {
+  background-color: var(--god);
+}
+
+#players .player .player-tiles .nile,
+#players .player .player-tiles .flood {
+  background-color: var(--river);
+}
+
+#players .player .player-tiles .agriculture,
+#players .player .player-tiles .art,
+#players .player .player-tiles .astronomy,
+#players .player .player-tiles .religion,
+#players .player .player-tiles .writing {
+  background-color: var(--civilization);
+}
+
+#players .player .player-tiles .fortress,
+#players .player .player-tiles .obelisk,
+#players .player .player-tiles .palace,
+#players .player .player-tiles .pyramid,
+#players .player .player-tiles .sphinx,
+#players .player .player-tiles .statue,
+#players .player .player-tiles .step_pyramid,
+#players .player .player-tiles .temple {
+  background-color: var(--monument);
+}
+
+.Collapsible {
+  border: 1px solid rgb(216, 216, 216);
+  border-radius: 1vh;
+  padding: 1vh;
 }

@@ -6,8 +6,6 @@ import {
   CivilizationType,
   MonumentType
 } from "./tile";
-import { CoverageMap } from "istanbul-lib-coverage";
-
 export interface Score {
   pharaohs: number;
   gold: number;

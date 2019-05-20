@@ -1,7 +1,13 @@
 import React from "react";
+import Collapsible from "react-collapsible";
 import Sun from "./sun";
 import Actions from "./actions";
-
+import {
+  TileType,
+  RiverType,
+  CivilizationType,
+  MonumentType
+} from "./../game/tile";
 import "./css/player.css";
 
 export default class Player extends React.Component {
@@ -70,9 +76,105 @@ export default class Player extends React.Component {
           {suns}
           {usedSuns}
         </div>
-        <div>tiles: {this.props.tiles.length}</div>
         {actions}
+
+        <PlayerTiles tiles={this.props.tiles} />
       </div>
     );
   }
+}
+
+class PlayerTiles extends React.Component {
+  count(tileType) {
+    return this.props.tiles.filter(tile => tile.tileType == tileType).length;
+  }
+
+  subCount(tileType) {
+    return this.props.tiles.filter(tile => tile.subType == tileType).length;
+  }
+
+  addRow(tiles, tileType) {
+    if (this.count(tileType) > 0) {
+      tiles.push(<div key={tileType}>{tileType}</div>);
+      tiles.push(
+        <div className="tiles" key={tileType + "tiles"}>
+          {[...Array(this.count(tileType)).keys()].map((key, index) => (
+            <span className={tileType} key={index} />
+          ))}
+        </div>
+      );
+    }
+  }
+
+  addHeader(tiles, title) {
+    if (this.count(title) > 0) {
+      tiles.push(
+        <div className="tile-header" key={title}>
+          {title}
+        </div>
+      );
+    }
+  }
+
+  addSubRow(tiles, tileType) {
+    if (this.subCount(tileType) > 0) {
+      tiles.push(
+        <div className="sub-row" key={tileType}>
+          {capitalize(tileType).replace(/_/g, " ")}
+        </div>
+      );
+      tiles.push(
+        <div key={tileType + "tiles"}>
+          {
+            <div className="tiles">
+              {[...Array(this.subCount(tileType)).keys()].map((key, index) => (
+                <span className={tileType} key={index} />
+              ))}
+            </div>
+          }
+        </div>
+      );
+    }
+  }
+
+  render() {
+    const tiles = [];
+    this.addRow(tiles, TileType.Pharaoh);
+    this.addRow(tiles, TileType.Gold);
+    this.addRow(tiles, TileType.God);
+
+    this.addHeader(tiles, TileType.River);
+    this.addSubRow(tiles, RiverType.nile);
+    this.addSubRow(tiles, RiverType.flood);
+
+    this.addHeader(tiles, TileType.Civilization);
+    this.addSubRow(tiles, CivilizationType.agriculture);
+    this.addSubRow(tiles, CivilizationType.art);
+    this.addSubRow(tiles, CivilizationType.astronomy);
+    this.addSubRow(tiles, CivilizationType.religion);
+    this.addSubRow(tiles, CivilizationType.writing);
+
+    this.addHeader(tiles, TileType.Monument);
+    this.addSubRow(tiles, MonumentType.fortress);
+    this.addSubRow(tiles, MonumentType.obelisk);
+    this.addSubRow(tiles, MonumentType.palace);
+    this.addSubRow(tiles, MonumentType.pyramid);
+    this.addSubRow(tiles, MonumentType.sphinx);
+    this.addSubRow(tiles, MonumentType.statue);
+    this.addSubRow(tiles, MonumentType.step_pyramid);
+    this.addSubRow(tiles, MonumentType.temple);
+
+    return (
+      <Collapsible
+        trigger={"Tiles: " + this.props.tiles.length}
+        transitionTime={100}
+      >
+        <div className="player-tiles">{tiles}</div>
+      </Collapsible>
+    );
+  }
+}
+
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

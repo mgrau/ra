@@ -4,6 +4,7 @@ import Tile from "./tile";
 import Player from "./player";
 import "./css/board.css";
 import "./css/colors.css";
+import "@fortawesome/fontawesome-free/css/all";
 import { raTrackLength } from "./../game/moves";
 
 export default class RaBoard extends React.Component {
@@ -46,7 +47,6 @@ export default class RaBoard extends React.Component {
     ));
     return (
       <div>
-        {this.props.ctx.phase}
         <div id="ra-board">
           <div id="ra-track">
             {raTrack}

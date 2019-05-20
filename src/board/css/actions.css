@@ -6,6 +6,7 @@
   margin: 0.2vh;
   width: 5vh;
   height: 5vh;
+  padding: 1vh;
 
   box-shadow: inset 0px 0px 14px -3px #f0f0f0;
 
@@ -13,9 +14,9 @@
 
   background-color: #dbe6c4;
 
-  border-radius: 6px;
+  border-radius: 0.5vh;
   border: 1px solid #b9b9b9;
-  display: inline-block;
+  text-align: center;
   cursor: pointer;
   color: #585a57;
   font-family: Arial;

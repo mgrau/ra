@@ -2,8 +2,13 @@
   --colNum: 10;
 }
 
+#root {
+  font-size: 2vh;
+  display: grid;
+  justify-items: center;
+}
+
 #ra-board {
-  /* border: 1px solid gray; */
   border-radius: 1vh;
   display: grid;
   grid-template-rows: 11.5vh 1fr 11.5vh;

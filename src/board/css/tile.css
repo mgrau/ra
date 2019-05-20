@@ -12,7 +12,7 @@
 }
 
 .tile.space {
-  border: 5px solid #eee;
+  border: 0.5vh solid #eee;
   box-shadow: none;
   background: #eee;
 }

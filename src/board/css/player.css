@@ -23,7 +23,8 @@
 
 #players .player .player-tiles {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 10vh 10vh;
+  font-size: 80%;
 }
 
 #players .player .player-tiles .tile-header {
@@ -82,5 +83,20 @@
 .Collapsible {
   border: 1px solid rgb(216, 216, 216);
   border-radius: 1vh;
-  padding: 1vh;
+  padding: 0.5vh;
+}
+
+.Collapsible__trigger {
+  display: block;
+}
+
+.Collapsible__trigger::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f077";
+  float: right;
+}
+
+.Collapsible__trigger.is-open::after {
+  content: "\f078";
 }

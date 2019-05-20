@@ -76,9 +76,9 @@ export default class Player extends React.Component {
           {suns}
           {usedSuns}
         </div>
-        {actions}
 
         <PlayerTiles tiles={this.props.tiles} />
+        {actions}
       </div>
     );
   }

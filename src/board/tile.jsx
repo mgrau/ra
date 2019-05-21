@@ -4,6 +4,13 @@ import "./css/tile.css";
 
 export default class Tile extends React.PureComponent {
   render() {
+    const subType =
+      this.props.subType != undefined ? (
+        <div>{this.props.subType.replace(/_/g, " ")}</div>
+      ) : (
+        ""
+      );
+
     return (
       <div
         className={
@@ -16,7 +23,7 @@ export default class Tile extends React.PureComponent {
         onClick={() => this.props.selectTile()}
       >
         <div>{this.props.tileType}</div>
-        <div>{this.props.subType}</div>
+        {subType}
       </div>
     );
   }

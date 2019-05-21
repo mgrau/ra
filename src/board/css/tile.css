@@ -9,6 +9,8 @@
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   display: grid;
   align-items: center;
+
+  -webkit-user-select: none;
 }
 
 .tile.selected {

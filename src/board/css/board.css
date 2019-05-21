@@ -5,7 +5,12 @@
 #root {
   font-size: 2vh;
   display: grid;
-  justify-items: center;
+  /* justify-items: center; */
+}
+
+#epoch {
+  margin: 1vh;
+  /* text-align: center; */
 }
 
 #ra-board {

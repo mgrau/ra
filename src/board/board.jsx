@@ -110,6 +110,7 @@ export default class RaBoard extends React.Component {
     ));
     return (
       <div>
+        <div id="epoch">Epoch {this.props.G.epoch}</div>
         <div id="ra-board">
           <div id="ra-track">
             {raTrack}

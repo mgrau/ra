@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.tile.selected {
+  box-shadow: 0px 0px 1vh 0.2vh rgb(0, 104, 165);
+}
+
 .tile.space {
   border: 0.5vh solid #eee;
   box-shadow: none;

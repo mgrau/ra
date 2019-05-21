@@ -8,6 +8,7 @@ import {
   CivilizationType,
   MonumentType
 } from "./../game/tile";
+import { Count } from "./../game/score";
 import "./css/player.css";
 
 export default class Player extends React.Component {
@@ -64,6 +65,10 @@ export default class Player extends React.Component {
         canPass={this.props.canPass}
         allowedMoves={this.props.allowedMoves}
         moves={this.props.moves}
+        god={{
+          ...this.props.god,
+          count: Count(this.props.tiles, TileType.God)
+        }}
       />
     ) : (
       ""

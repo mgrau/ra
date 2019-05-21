@@ -6,14 +6,65 @@ import "./css/board.css";
 import "./css/colors.css";
 import "@fortawesome/fontawesome-free/css/all";
 import { raTrackLength, canPass } from "./../game/moves";
+import { Count } from "./../game/score";
+import { TileType } from "./../game/tile";
 
 export default class RaBoard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTiles: [],
+      godSelect: false
+    };
+
+    this.beginGodSelect = this.beginGodSelect.bind(this);
+    this.cancelGodSelect = this.cancelGodSelect.bind(this);
+    this.submitGodSelect = this.submitGodSelect.bind(this);
+    this.selectTile = this.selectTile.bind(this);
+  }
+
+  beginGodSelect() {
+    this.setState({ godSelect: true, selectedTiles: [] });
+  }
+
+  cancelGodSelect() {
+    this.setState({ godSelect: false, selectedTiles: [] });
+  }
+
+  submitGodSelect() {
+    this.props.moves.god(this.state.selectedTiles);
+    this.setState({ godSelect: false, selectedTiles: [] });
+  }
+
+  selectTile(index) {
+    if (this.state.godSelect) {
+      if (!this.state.selectedTiles.includes(index)) {
+        if (
+          this.state.selectedTiles.length <
+          Count(
+            this.props.G.players[this.props.ctx.currentPlayer].tiles,
+            TileType.God
+          )
+        ) {
+          this.setState(prevState => ({
+            selectedTiles: [...prevState.selectedTiles, index]
+          }));
+        }
+      } else {
+        this.setState(prevState => ({
+          selectedTiles: prevState.selectedTiles.filter(i => i != index)
+        }));
+      }
+    }
+  }
+
   componentDidMount() {
     document.documentElement.style.setProperty(
       "--colNum",
       raTrackLength(this.props.ctx.numPlayers)
     );
   }
+
   render() {
     const raTrack = this.props.G.raTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
@@ -26,7 +77,12 @@ export default class RaBoard extends React.Component {
     ].map((tile, index) => <div key={index + 8} className="tile space" />);
 
     const auctionTrack = this.props.G.auctionTrack.map((tile, index) => (
-      <Tile key={index} {...tile} />
+      <Tile
+        key={index}
+        {...tile}
+        selectTile={() => this.selectTile(index)}
+        selected={this.state.selectedTiles.includes(index)}
+      />
     ));
 
     const auctionSpaces = [
@@ -44,6 +100,12 @@ export default class RaBoard extends React.Component {
         canPass={canPass(this.props.G, this.props.ctx)}
         allowedMoves={this.props.ctx.allowedMoves}
         moves={this.props.moves}
+        god={{
+          select: this.state.godSelect,
+          begin: this.beginGodSelect,
+          cancel: this.cancelGodSelect,
+          submit: this.submitGodSelect
+        }}
       />
     ));
     return (

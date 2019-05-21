@@ -116,7 +116,7 @@ export default function Score(G: GameState) {
   });
 }
 
-function Count(tiles: Tile[], type: TileType): number {
+export function Count(tiles: Tile[], type: TileType): number {
   return tiles.filter(tile => tile.tileType == type).length;
 }
 

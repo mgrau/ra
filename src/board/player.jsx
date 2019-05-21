@@ -59,21 +59,22 @@ export default class Player extends React.Component {
       <Sun key={index} value={sun} used={true} />
     ));
 
-    const actions = this.props.active ? (
-      <Actions
-        pass={this.pass}
-        auctionTrackLength={this.props.auctionTrackLength}
-        canPass={this.props.canPass}
-        allowedMoves={this.props.allowedMoves}
-        moves={this.props.moves}
-        god={{
-          ...this.props.god,
-          count: Count(this.props.tiles, TileType.God)
-        }}
-      />
-    ) : (
-      ""
-    );
+    const actions =
+      this.props.active && !this.props.gameover ? (
+        <Actions
+          pass={this.pass}
+          auctionTrackLength={this.props.auctionTrackLength}
+          canPass={this.props.canPass}
+          allowedMoves={this.props.allowedMoves}
+          moves={this.props.moves}
+          god={{
+            ...this.props.god,
+            count: Count(this.props.tiles, TileType.God)
+          }}
+        />
+      ) : (
+        ""
+      );
     return (
       <div className={"player" + (this.props.active ? " active" : "")}>
         <div>

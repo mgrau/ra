@@ -66,6 +66,14 @@ export default class RaBoard extends React.Component {
   }
 
   render() {
+    const epoch = (
+      <div id="epoch">
+        {this.props.ctx.gameover == undefined
+          ? "Epoch " + this.props.G.epoch
+          : "Gameover! Player " + this.props.ctx.gameover.winner + " Wins"}
+      </div>
+    );
+
     const raTrack = this.props.G.raTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
     ));
@@ -106,11 +114,12 @@ export default class RaBoard extends React.Component {
           cancel: this.cancelGodSelect,
           submit: this.submitGodSelect
         }}
+        gameover={this.props.ctx.gameover != undefined}
       />
     ));
     return (
       <div>
-        <div id="epoch">Epoch {this.props.G.epoch}</div>
+        {epoch}
         <div id="ra-board">
           <div id="ra-track">
             {raTrack}

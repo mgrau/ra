@@ -8,10 +8,10 @@ import "./css/score.css";
 export default class Score extends React.Component {
   render() {
     const categories = Object.keys(this.props.score[0]).map(category => (
-      <tr>
+      <tr key={category}>
         <th>{category}</th>
-        {this.props.score.map(epoch => (
-          <td>{epoch[category]}</td>
+        {this.props.score.map((score, epoch) => (
+          <td key={category + epoch}>{score[category]}</td>
         ))}
       </tr>
     ));
@@ -33,13 +33,15 @@ export default class Score extends React.Component {
           effect="solid"
         >
           <table>
-            <tr>
-              <th />
-              <th>1</th>
-              <th>2</th>
-              <th>3</th>
-            </tr>
-            {categories}
+            <tbody>
+              <tr>
+                <th>Epoch:</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+              </tr>
+              {categories}
+            </tbody>
           </table>
         </ReactTooltip>
       </div>

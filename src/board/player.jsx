@@ -1,5 +1,6 @@
 import React from "react";
 import Collapsible from "react-collapsible";
+import Score from "./score";
 import Sun from "./sun";
 import Actions from "./actions";
 import {
@@ -77,6 +78,11 @@ export default class Player extends React.Component {
       <div className={"player" + (this.props.active ? " active" : "")}>
         <div>
           {ra} Player {this.props.playerID}
+          <Score
+            id={this.props.playerID}
+            points={this.props.points}
+            score={this.props.score}
+          />
         </div>
         <div className="suns">
           {suns}

@@ -9,6 +9,11 @@
   margin-bottom: 0.5vh;
 }
 
+#players .player > div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
 #players .player .raPlayer {
   text-shadow: 0 0 0.2em #f87, 0 0 0.2em #f87;
 }

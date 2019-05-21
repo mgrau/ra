@@ -1,0 +1,21 @@
+.score {
+  color: rgb(59, 113, 212);
+  -webkit-user-select: none;
+}
+
+.score .score-text {
+  position: relative;
+  top: 35%;
+  font-size: 80%;
+  text-shadow: rgb(0, 0, 0) 1px 0 2px;
+  width: 100%;
+}
+
+.score table th {
+  text-align: left;
+}
+
+.score table th,
+td {
+  padding: 0.5vh;
+}

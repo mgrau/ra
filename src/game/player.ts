@@ -17,11 +17,24 @@ export function Players(playerSuns: number[][]): Player[] {
 export default function SetupPlayer(playerID: number, suns: number[]): Player {
   return {
     points: 10,
-    score: [],
+    score: [zeroScore(), zeroScore(), zeroScore()],
     suns: suns,
     usedSuns: [],
     bid: null,
     pass: false,
     tiles: []
+  };
+}
+
+function zeroScore(): Score {
+  return {
+    pharaohs: 0,
+    gold: 0,
+    gods: 0,
+    river: 0,
+    civilization: 0,
+    suns: 0,
+    monument: 0,
+    total: 0
   };
 }

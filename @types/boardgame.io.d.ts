@@ -86,6 +86,8 @@ declare module "boardgame.io/core" {
   }
   interface IGameArgs<TGameState> {
     name?: string;
+    minPlayers?: number;
+    maxPlayers?: number;
     setup: (ctx: IGameCtx) => TGameState;
     moves: IGameMoves<TGameState>;
     playerView?: (G: TGameState, ctx: IGameCtx, playerID: IPlayer) => any;

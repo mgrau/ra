@@ -8,6 +8,9 @@ import Setup, { GameState } from "./setup";
 import StripSecrets from "./secrets";
 
 export const Ra = Game({
+  name: "ra",
+  minPlayers: 2,
+  maxPlayers: 5,
   setup: (ctx: IGameCtx) =>
     Setup(
       ctx.random.Shuffle(StartingSuns(ctx.numPlayers)),

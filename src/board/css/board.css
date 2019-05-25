@@ -13,6 +13,11 @@
   /* text-align: center; */
 }
 
+#playerID {
+  margin: 1vh;
+  /* text-align: center; */
+}
+
 #ra-board {
   border-radius: 1vh;
   display: grid;

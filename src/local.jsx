@@ -10,7 +10,7 @@ const RaClient = Client({
   numPlayers: 2,
   game: Ra,
   board: RaBoard,
-  //   // multiplayer: { server: "http://localhost:5000" },
+    // multiplayer: { server: "http://localhost:5000" },
   debug: true
 });
 

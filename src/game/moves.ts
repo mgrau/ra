@@ -4,21 +4,23 @@ import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 
 export function draw(G: GameState, ctx: IGameCtx) {
-  if (G.auctionTrack.length < 8) {
-    const tile: Tile = G.tiles.pop();
-    if (tile.tileType == TileType.Ra) {
-      G.raTrack = [...G.raTrack, tile];
-      if (G.raTrack.length < raTrackLength(ctx.numPlayers)) {
-        ctx.events.endPhase({ next: "Auction" });
+  if (G.tiles != undefined) {
+    if (G.auctionTrack.length < 8) {
+      const tile: Tile = G.tiles.pop();
+      if (tile.tileType == TileType.Ra) {
+        G.raTrack = [...G.raTrack, tile];
+        if (G.raTrack.length < raTrackLength(ctx.numPlayers)) {
+          ctx.events.endPhase({ next: "Auction" });
+        } else {
+          EndEpoch(G, ctx);
+        }
       } else {
-        EndEpoch(G, ctx);
+        G.auctionTrack = [...G.auctionTrack, tile];
       }
     } else {
-      G.auctionTrack = [...G.auctionTrack, tile];
+      console.log("can't draw a tile when auction track is full");
+      return INVALID_MOVE;
     }
-  } else {
-    console.log("can't draw a tile when auction track is full");
-    return INVALID_MOVE;
   }
 }
 

@@ -5,7 +5,7 @@ export default function StripSecrets(G: GameState, playerID: string) {
   let secretG = { ...G };
 
   if (secretG.tiles !== undefined) {
-    secretG.tiles = [<Tile>{}];
+    delete secretG.tiles;
   }
 
   // if (secretG.players) {

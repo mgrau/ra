@@ -7,8 +7,8 @@ import RaBoard from "./board/board";
 ReactDOM.render(
   <div>
     <Lobby
-      gameServer="http://localhost:5001"
-      lobbyServer="http://localhost:5001"
+      gameServer="https://mgrau.dev:5002"
+      lobbyServer="https://mgrau.dev/ra-lobby"
       gameComponents={[{ game: Ra, board: RaBoard }]}
     />
   </div>,

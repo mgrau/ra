@@ -7,7 +7,7 @@
   "scripts": {
     "start": "parcel local.html",
     "build": "parcel build index.html --public-url https://mgrau.dev/ra/",
-    "server": "npx ts-node src/server.js",
+    "server": "npx ts-node src/server.ts",
     "test": "cross-env NODE_ENV=test jest --no-cache",
     "test:coverage": "cross-env NODE_ENV=test jest --no-cache --coverage"
   },

@@ -7,6 +7,7 @@ import { Count } from "./../game/score";
 import { TileType } from "./../game/tile";
 
 import "./css/board.css";
+import "./css/lobby.css";
 import "./css/colors.css";
 
 export default class RaBoard extends React.Component {

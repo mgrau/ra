@@ -10,6 +10,8 @@ import {
   MonumentType
 } from "./../game/tile";
 import { Count } from "./../game/score";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./css/player.css";
 
 export default class Player extends React.Component {
@@ -177,9 +179,24 @@ class PlayerTiles extends React.Component {
     this.addSubRow(tiles, MonumentType.step_pyramid);
     this.addSubRow(tiles, MonumentType.temple);
 
+    const trigger = (
+      <span className="tilesHeader">
+        <span>{"Tiles: " + this.props.tiles.length}</span>
+        <FontAwesomeIcon icon={faAngleUp} />
+      </span>
+    );
+
+    const triggerWhenOpen = (
+      <span className="tilesHeader">
+        <span>{"Tiles: " + this.props.tiles.length}</span>
+        <FontAwesomeIcon icon={faAngleDown} />
+      </span>
+    );
+
     return (
       <Collapsible
-        trigger={"Tiles: " + this.props.tiles.length}
+        trigger={trigger}
+        triggerWhenOpen={triggerWhenOpen}
         transitionTime={100}
       >
         <div className="player-tiles">{tiles}</div>

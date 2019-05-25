@@ -2,12 +2,12 @@ import React from "react";
 import Sun from "./sun";
 import Tile from "./tile";
 import Player from "./player";
-import "./css/board.css";
-import "./css/colors.css";
-import "@fortawesome/fontawesome-free/css/all";
 import { raTrackLength, canPass } from "./../game/moves";
 import { Count } from "./../game/score";
 import { TileType } from "./../game/tile";
+
+import "./css/board.css";
+import "./css/colors.css";
 
 export default class RaBoard extends React.Component {
   constructor(props) {

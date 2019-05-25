@@ -85,23 +85,13 @@
   background-color: var(--monument);
 }
 
-.Collapsible {
+#players .player .Collapsible {
   border: 1px solid rgb(216, 216, 216);
   border-radius: 1vh;
   padding: 0.5vh;
 }
 
-.Collapsible__trigger {
-  display: block;
-}
-
-.Collapsible__trigger::after {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: "\f077";
-  float: right;
-}
-
-.Collapsible__trigger.is-open::after {
-  content: "\f078";
+#players .player .Collapsible .tilesHeader {
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,5 +1,5 @@
 import { INVALID_MOVE, IGameCtx } from "boardgame.io/core";
-import { Tile, TileType } from "./tile";
+import { Tile, TileType, CivilizationType, MonumentType } from "./tile";
 import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 
@@ -90,8 +90,43 @@ export function bid(G: GameState, ctx: IGameCtx, bid: number) {
   }
 }
 
-export function discard(G: GameState, ctx: IGameCtx) {
-  console.log("discard");
+export function discard(
+  G: GameState,
+  ctx: IGameCtx,
+  type: CivilizationType | MonumentType
+) {
+  const tiles = G.players[ctx.currentPlayer].tiles;
+  if (tiles.filter(tile => tile.subType == type).length > 0) {
+    if (CivilizationType[type] != null && G.discard.civilization > 0) {
+      console.log("discard civ");
+      tiles.splice(tiles.findIndex(tile => tile.subType == type), 1);
+      G.discard.civilization -= 1;
+    } else if (MonumentType[type] != null && G.discard.monument > 0) {
+      console.log("discard monument");
+      tiles.splice(tiles.findIndex(tile => tile.subType == type), 1);
+      G.discard.monument -= 1;
+    } else {
+      return INVALID_MOVE;
+    }
+  } else {
+    return INVALID_MOVE;
+  }
+
+  G.players[ctx.currentPlayer].tiles = tiles;
+
+  if (
+    (G.discard.civilization <= 0 ||
+      tiles.filter(tile => tile.tileType == TileType.Civilization).length ==
+        0) &&
+    (G.discard.monument <= 0 ||
+      tiles.filter(tile => tile.tileType == TileType.Monument).length == 0)
+  ) {
+    G.discard.civilization = 0;
+    G.discard.monument = 0;
+    ctx.events.endTurn({ next: G.nextPlayer + "" });
+    ctx.events.endPhase({ next: "Action" });
+    G.nextPlayer = null;
+  }
 }
 
 export function raTrackLength(numPlayers: number): number {

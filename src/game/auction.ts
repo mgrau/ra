@@ -2,11 +2,13 @@ import { GameState } from "./setup";
 import EndEpoch from "./epoch";
 import { Tile, TileType, DisasterType, RiverType } from "./tile";
 import { IGameCtx } from "boardgame.io/core";
+import TurnOrder from "./order";
 
 export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
   G.ra = null;
   const maxBid = Math.max(...G.players.map(player => player.bid));
   const winner = G.players.find(player => player.bid == maxBid);
+  const winnerID = G.players.findIndex(player => player.bid == maxBid);
   if (winner == undefined) {
     if (G.auctionTrack.length >= 8) {
       G.auctionTrack = [];
@@ -30,12 +32,16 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
         winner.tiles = DiscardRiver(winner.tiles);
       }
       if (disaster.subType == DisasterType.war) {
-        winner.tiles = DiscardCivilization(winner.tiles);
-        winner.tiles = DiscardCivilization(winner.tiles);
+        G.discard.civilization += 2;
+        ctx.events.endPhase({ next: "Discard" });
+        ctx.events.endTurn({ next: winnerID + "" });
+        G.nextPlayer = TurnOrder.next(G, ctx);
       }
       if (disaster.subType == DisasterType.earthquake) {
-        winner.tiles = DiscardMonument(winner.tiles);
-        winner.tiles = DiscardMonument(winner.tiles);
+        G.discard.monument += 2;
+        ctx.events.endPhase({ next: "Discard" });
+        ctx.events.endTurn({ next: winnerID + "" });
+        G.nextPlayer = TurnOrder.next(G, ctx);
       }
     });
     winner.suns.splice(winner.suns.indexOf(maxBid), 1);

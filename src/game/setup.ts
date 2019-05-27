@@ -10,6 +10,7 @@ export interface GameState {
   auctionTrack: Tile[];
   tiles: Tile[];
   nextPlayer: number;
+  discard: { civilization: number; monument: number };
 }
 
 export default function Setup(suns: number[][], tiles: Tile[]): GameState {
@@ -21,7 +22,8 @@ export default function Setup(suns: number[][], tiles: Tile[]): GameState {
     raTrack: [],
     auctionTrack: [],
     tiles: tiles,
-    nextPlayer: null
+    nextPlayer: null,
+    discard: { civilization: 0, monument: 0 }
   };
   return G;
 }

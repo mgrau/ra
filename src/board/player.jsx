@@ -92,7 +92,11 @@ export default class Player extends React.Component {
           {usedSuns}
         </div>
 
-        <PlayerTiles tiles={this.props.tiles} />
+        <PlayerTiles
+          tiles={this.props.tiles}
+          allowedMoves={this.props.allowedMoves}
+          moves={this.props.moves}
+        />
         {actions}
       </div>
     );
@@ -100,6 +104,16 @@ export default class Player extends React.Component {
 }
 
 class PlayerTiles extends React.Component {
+  discard(type) {
+    if (
+      this.props.allowedMoves.includes("discard") &&
+      (CivilizationType[type] != null || MonumentType[type] != null)
+    ) {
+      console.log({discard: type})
+      this.props.moves.discard(type);
+    }
+  }
+
   count(tileType) {
     return this.props.tiles.filter(tile => tile.tileType == tileType).length;
   }
@@ -141,7 +155,7 @@ class PlayerTiles extends React.Component {
       tiles.push(
         <div key={tileType + "tiles"}>
           {
-            <div className="tiles">
+            <div className="tiles" onClick={() => this.discard(tileType)}>
               {[...Array(this.subCount(tileType)).keys()].map((key, index) => (
                 <span className={tileType} key={index} />
               ))}

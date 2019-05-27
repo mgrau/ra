@@ -184,7 +184,8 @@ test("order end of epoch suns", () => {
         players: players,
         raTrack: [],
         auctionTrack: [],
-        tiles: []
+        tiles: [],
+        nextPlayer: null
       };
       return G;
     }
@@ -208,14 +209,12 @@ test("order end of epoch suns", () => {
   client.moves.invoke();
   client.moves.bid(4);
   client.moves.pass();
-  client.moves.pass();
 
   store = client.store.getState();
-  expect(store.ctx.currentPlayer).toBe("2");
+  expect(store.ctx.currentPlayer).toBe("1");
   client.moves.invoke();
-  client.moves.pass();
   client.moves.bid(3);
-  client.moves.bid();
+
   store = client.store.getState();
   expect(store.G.epoch).toBe(2);
   expect(store.ctx.currentPlayer).toBe("1");

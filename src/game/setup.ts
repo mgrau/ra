@@ -9,6 +9,7 @@ export interface GameState {
   raTrack: Tile[];
   auctionTrack: Tile[];
   tiles: Tile[];
+  nextPlayer: number;
 }
 
 export default function Setup(suns: number[][], tiles: Tile[]): GameState {
@@ -19,7 +20,8 @@ export default function Setup(suns: number[][], tiles: Tile[]): GameState {
     players: Players(suns),
     raTrack: [],
     auctionTrack: [],
-    tiles: tiles
+    tiles: tiles,
+    nextPlayer: null
   };
   return G;
 }

@@ -47,6 +47,9 @@ export const Ra = Game({
       },
       Discard: {
         allowedMoves: ["discard"]
+      },
+      EndEpoch: {
+        allowedMoves: []
       }
     },
     turnOrder: TurnOrder

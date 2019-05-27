@@ -11,6 +11,4 @@
 
 ## bugs
 
-- turn order at the start of a new epoch incorrect (failing test).
 - scoring doesn't work when player score is hidden.
-  

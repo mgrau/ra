@@ -6,6 +6,8 @@
 - add test that score can't go negative
 - add hotkeys
 - display log
+- add a rules summary
+- add a simple AI
 
 ## bugs
 

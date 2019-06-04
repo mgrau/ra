@@ -98,11 +98,9 @@ export function discard(
   const tiles = G.players[ctx.currentPlayer].tiles;
   if (tiles.filter(tile => tile.subType == type).length > 0) {
     if (CivilizationType[type] != null && G.discard.civilization > 0) {
-      console.log("discard civ");
       tiles.splice(tiles.findIndex(tile => tile.subType == type), 1);
       G.discard.civilization -= 1;
     } else if (MonumentType[type] != null && G.discard.monument > 0) {
-      console.log("discard monument");
       tiles.splice(tiles.findIndex(tile => tile.subType == type), 1);
       G.discard.monument -= 1;
     } else {

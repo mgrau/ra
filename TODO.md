@@ -11,5 +11,5 @@
 - display log
 
 ## bugs
-
+- disasters still require a discard when player has no tiles.
 - scoring doesn't work when player score is hidden.

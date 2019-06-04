@@ -133,7 +133,7 @@ test("order 3 player", () => {
 });
 
 test("order end of epoch", () => {
-  const RaTest = {
+  var RaTest = {
     ...Ra,
     setup: ctx => {
       const players = Players([[2, 6], [3, 4], [5, 10]]);
@@ -158,7 +158,7 @@ test("order end of epoch", () => {
     }
   };
 
-  const client: any = Client({ numPlayers: 3, game: RaTest });
+  var client: any = Client({ numPlayers: 3, game: RaTest });
 
   var store: { G: GameState; ctx: any };
 
@@ -170,6 +170,85 @@ test("order end of epoch", () => {
   store = client.store.getState();
   expect(store.G.epoch).toBe(2);
   expect(store.ctx.currentPlayer).toBe("2");
+
+  var RaTest = {
+    ...Ra,
+    setup: ctx => {
+      const players = Players([[2], [3], [4], [10]]);
+      const G: GameState = {
+        epoch: 1,
+        sun: 1,
+        ra: null,
+        players: players,
+        raTrack: [
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra }
+        ],
+        auctionTrack: [],
+        tiles: [<Tile>{ tileType: TileType.Ra }]
+      };
+      return G;
+    }
+  };
+
+  var client: any = Client({ numPlayers: 4, game: RaTest });
+
+  var store: { G: GameState; ctx: any };
+
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(1);
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(2);
+  expect(store.ctx.currentPlayer).toBe("3");
+
+  var RaTest = {
+    ...Ra,
+    setup: ctx => {
+      const players = Players([[10], [3], [4], [5], [2]]);
+      const G: GameState = {
+        epoch: 1,
+        sun: 1,
+        ra: null,
+        players: players,
+        raTrack: [
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra },
+          <Tile>{ tileType: TileType.Ra }
+        ],
+        auctionTrack: [],
+        tiles: [<Tile>{ tileType: TileType.Ra }]
+      };
+      return G;
+    }
+  };
+
+  var client: any = Client({ numPlayers: 5, game: RaTest });
+
+  var store: { G: GameState; ctx: any };
+
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(1);
+  expect(store.ctx.currentPlayer).toBe("0");
+
+  client.moves.draw();
+  store = client.store.getState();
+  expect(store.G.epoch).toBe(2);
+  expect(store.ctx.currentPlayer).toBe("0");
 });
 
 test("order end of epoch suns", () => {

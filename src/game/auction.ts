@@ -80,19 +80,3 @@ function DiscardRiver(tiles: Tile[]) {
   }
   return tiles;
 }
-
-function DiscardCivilization(tiles: Tile[]) {
-  const index = tiles.findIndex(tile => tile.tileType == TileType.Civilization);
-  if (index >= 0) {
-    tiles.splice(index, 1);
-  }
-  return tiles;
-}
-
-function DiscardMonument(tiles: Tile[]) {
-  const index = tiles.findIndex(tile => tile.tileType == TileType.Monument);
-  if (index >= 0) {
-    tiles.splice(index, 1);
-  }
-  return tiles;
-}

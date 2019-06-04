@@ -172,6 +172,8 @@ test("war discard", () => {
         ra: null,
         players: players,
         raTrack: [],
+        nextPlayer: null,
+        discard: { civilization: 0, monument: 0 },
         auctionTrack: [
           <Tile>{
             tileType: TileType.Civilization,
@@ -203,13 +205,24 @@ test("war discard", () => {
   client.moves.bid(5);
   client.moves.bid(2);
   store = client.store.getState();
+  expect(store.ctx.phase).toBe("Discard");
+  expect(store.ctx.currentPlayer).toBe("1");
+  expect(store.G.players[1].tiles.length).toBe(3);
+
+  client.moves.discard(CivilizationType.writing);
+  store = client.store.getState();
+  expect(store.G.players[1].tiles.length).toBe(2);
+
+  client.moves.discard(CivilizationType.art);
+  store = client.store.getState();
+  expect(store.G.players[1].tiles.length).toBe(1);
   expect(store.ctx.phase).toBe("Action");
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.G.players[1].tiles.length).toBe(1);
+
   expect(store.G.players[1].tiles).toStrictEqual([
     <Tile>{
       tileType: TileType.Civilization,
-      subType: CivilizationType.art
+      subType: CivilizationType.agriculture
     }
   ]);
 
@@ -230,8 +243,7 @@ test("war discard", () => {
   client.moves.bid(2);
   store = client.store.getState();
   expect(store.ctx.phase).toBe("Action");
-  expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.G.auctionTrack.length).toBe(0);
+  expect(store.ctx.currentPlayer).toBe("0");
   expect(store.G.players[0].tiles.length).toBe(0);
 });
 
@@ -245,6 +257,8 @@ test("earthquake discard", () => {
         sun: 1,
         ra: null,
         players: players,
+        discard: { civilization: 0, monument: 0 },
+        nextPlayer: null,
         raTrack: [],
         auctionTrack: [
           <Tile>{
@@ -254,6 +268,18 @@ test("earthquake discard", () => {
           <Tile>{
             tileType: TileType.Monument,
             subType: MonumentType.pyramid
+          },
+          <Tile>{
+            tileType: TileType.Monument,
+            subType: MonumentType.pyramid
+          },
+          <Tile>{
+            tileType: TileType.Monument,
+            subType: MonumentType.statue
+          },
+          <Tile>{
+            tileType: TileType.Monument,
+            subType: MonumentType.sphinx
           }
         ],
         tiles: []
@@ -271,10 +297,26 @@ test("earthquake discard", () => {
   client.moves.pass();
   client.moves.bid(2);
   store = client.store.getState();
+  expect(store.ctx.phase).toBe("Discard");
+  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.G.players[0].tiles.length).toBe(4);
+
+  client.moves.discard(MonumentType.pyramid);
+  client.moves.discard(MonumentType.statue);
+  store = client.store.getState();
+  expect(store.G.players[0].tiles.length).toBe(2);
   expect(store.ctx.phase).toBe("Action");
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.G.players[0].tiles.length).toBe(0);
-  expect(store.G.players[0].tiles).toStrictEqual([]);
+  expect(store.G.players[0].tiles).toStrictEqual([
+    <Tile>{
+      tileType: TileType.Monument,
+      subType: MonumentType.pyramid
+    },
+    <Tile>{
+      tileType: TileType.Monument,
+      subType: MonumentType.sphinx
+    }
+  ]);
 });
 
 test("discard auction track", () => {

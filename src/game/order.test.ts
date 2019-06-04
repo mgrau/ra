@@ -142,6 +142,8 @@ test("order end of epoch", () => {
         sun: 1,
         ra: null,
         players: players,
+        discard: null,
+        nextPlayer: null,
         raTrack: [
           <Tile>{ tileType: TileType.Ra },
           <Tile>{ tileType: TileType.Ra },
@@ -179,6 +181,8 @@ test("order end of epoch", () => {
         epoch: 1,
         sun: 1,
         ra: null,
+        discard: null,
+        nextPlayer: null,
         players: players,
         raTrack: [
           <Tile>{ tileType: TileType.Ra },
@@ -218,6 +222,8 @@ test("order end of epoch", () => {
         epoch: 1,
         sun: 1,
         ra: null,
+        discard: null,
+        nextPlayer: null,
         players: players,
         raTrack: [
           <Tile>{ tileType: TileType.Ra },
@@ -260,11 +266,12 @@ test("order end of epoch suns", () => {
         epoch: 1,
         sun: 1,
         ra: null,
+        discard: null,
+        nextPlayer: null,
         players: players,
         raTrack: [],
         auctionTrack: [],
-        tiles: [],
-        nextPlayer: null
+        tiles: []
       };
       return G;
     }

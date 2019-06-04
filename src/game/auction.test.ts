@@ -55,6 +55,8 @@ test("drought discard", () => {
         sun: 1,
         ra: null,
         players: players,
+        discard: null,
+        nextPlayer: null,
         raTrack: [],
         auctionTrack: [
           <Tile>{ tileType: TileType.River, subType: RiverType.nile },
@@ -130,6 +132,8 @@ test("funeral discard", () => {
         epoch: 1,
         sun: 1,
         ra: null,
+        discard: null,
+        nextPlayer: null,
         players: players,
         raTrack: [],
         auctionTrack: [
@@ -344,6 +348,8 @@ test("discard auction track", () => {
         epoch: 1,
         sun: 1,
         ra: null,
+        discard: null,
+        nextPlayer: null,
         players: players,
         raTrack: [],
         auctionTrack: [
@@ -406,6 +412,8 @@ test("no suns end epoch", () => {
         sun: 1,
         ra: null,
         players: players,
+        discard: null,
+        nextPlayer: null,
         raTrack: [],
         auctionTrack: [<Tile>{}],
         tiles: [<Tile>{}, <Tile>{}, <Tile>{}]

@@ -16,8 +16,9 @@ export const Ra = Game({
       ctx.random.Shuffle(StartingSuns(ctx.numPlayers)),
       ctx.random.Shuffle(Tiles())
     ),
-  playerView: (G: GameState, ctx: IGameCtx, playerID: string) =>
-    StripSecrets(G, playerID),
+  playerView: (G: GameState, ctx: IGameCtx, playerID: string) => {
+    return StripSecrets(G, playerID);
+  },
   moves: {
     draw,
     invoke,

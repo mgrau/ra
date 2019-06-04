@@ -28,6 +28,65 @@ test("draw", () => {
   expect(store.ctx.phase).toBe("Auction");
 });
 
+test("draw multiplayer", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => Setup([[2], [3]], [<Tile>{ tileType: TileType.Ra }, <Tile>{}])
+  };
+
+  const client: any = Client({ game: RaTest });
+
+  client.moves.draw();
+  var store: { G: GameState; ctx: any };
+  store = client.store.getState();
+
+  expect(store.G.auctionTrack.length).toBe(1);
+  expect(store.G.tiles.length).toBe(1);
+
+  client.moves.draw();
+  store = client.store.getState();
+
+  expect(store.G.raTrack.length).toBe(1);
+  expect(store.G.auctionTrack.length).toBe(1);
+  expect(store.G.tiles.length).toBe(0);
+  expect(store.ctx.phase).toBe("Auction");
+});
+
+test("draw tiles multiplayer", () => {
+  const RaTest = {
+    ...Ra,
+    setup: ctx => Setup([[2], [3]], [<Tile>{ tileType: TileType.Ra }, <Tile>{}])
+  };
+  const spec = {
+    game: Ra,
+    multiplayer: { local: true }
+  };
+
+  const player0: any = Client({ ...spec, playerID: "0" });
+  const player1: any = Client({ ...spec, playerID: "1" });
+
+  player0.connect();
+  player1.connect();
+
+  var store: { G: GameState; ctx: any };
+  store = player0.store.getState();
+  expect(store.G.tiles).toBeUndefined();
+  expect(store.G.auctionTrack.length).toBe(0);
+
+  store = player1.store.getState();
+  expect(store.G.tiles).toBeUndefined();
+  expect(store.G.auctionTrack.length).toBe(0);
+
+  player0.moves.draw();
+  store = player0.store.getState();
+  expect(store.G.auctionTrack.length).toBe(1);
+  expect(store.G.tiles).toBeUndefined();
+
+  store = player1.store.getState();
+  expect(store.G.auctionTrack.length).toBe(1);
+  expect(store.G.tiles).toBeUndefined();
+});
+
 test("full auction track", () => {
   const RaTest = {
     ...Ra,

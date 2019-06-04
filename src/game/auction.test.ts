@@ -280,6 +280,10 @@ test("earthquake discard", () => {
           <Tile>{
             tileType: TileType.Monument,
             subType: MonumentType.sphinx
+          },
+          <Tile>{
+            tileType: TileType.Civilization,
+            subType: CivilizationType.art
           }
         ],
         tiles: []
@@ -299,12 +303,20 @@ test("earthquake discard", () => {
   store = client.store.getState();
   expect(store.ctx.phase).toBe("Discard");
   expect(store.ctx.currentPlayer).toBe("0");
-  expect(store.G.players[0].tiles.length).toBe(4);
+  expect(store.G.players[0].tiles.length).toBe(5);
+  expect(store.G.discard.monument).toBe(2);
+
+  client.moves.discard(MonumentType.step_pyramid);
+  client.moves.discard(CivilizationType.agriculture);
+  client.moves.discard(CivilizationType.art);
+  store = client.store.getState();
+  expect(store.G.players[0].tiles.length).toBe(5);
+  expect(store.G.discard.monument).toBe(2);
 
   client.moves.discard(MonumentType.pyramid);
   client.moves.discard(MonumentType.statue);
   store = client.store.getState();
-  expect(store.G.players[0].tiles.length).toBe(2);
+  expect(store.G.players[0].tiles.length).toBe(3);
   expect(store.ctx.phase).toBe("Action");
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles).toStrictEqual([
@@ -315,6 +327,10 @@ test("earthquake discard", () => {
     <Tile>{
       tileType: TileType.Monument,
       subType: MonumentType.sphinx
+    },
+    <Tile>{
+      tileType: TileType.Civilization,
+      subType: CivilizationType.art
     }
   ]);
 });

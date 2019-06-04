@@ -243,7 +243,7 @@ test("war discard", () => {
   client.moves.bid(2);
   store = client.store.getState();
   expect(store.ctx.phase).toBe("Action");
-  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles.length).toBe(0);
 });
 

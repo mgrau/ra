@@ -33,17 +33,37 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
       }
       if (disaster.subType == DisasterType.war) {
         G.discard.civilization += 2;
-        ctx.events.endPhase({ next: "Discard" });
-        ctx.events.endTurn({ next: winnerID + "" });
-        G.nextPlayer = TurnOrder.next(G, ctx);
       }
       if (disaster.subType == DisasterType.earthquake) {
         G.discard.monument += 2;
+      }
+    });
+    if (G.discard != undefined) {
+      if (
+        G.discard.civilization >=
+        winner.tiles.filter(tile => tile.tileType == TileType.Civilization)
+          .length
+      ) {
+        G.discard.civilization = 0;
+        winner.tiles = winner.tiles.filter(
+          tile => tile.tileType != TileType.Civilization
+        );
+      }
+      if (
+        G.discard.monument >=
+        winner.tiles.filter(tile => tile.tileType == TileType.Monument).length
+      ) {
+        G.discard.monument = 0;
+        winner.tiles = winner.tiles.filter(
+          tile => tile.tileType != TileType.Monument
+        );
+      }
+      if (G.discard.civilization > 0 || G.discard.monument > 0) {
         ctx.events.endPhase({ next: "Discard" });
         ctx.events.endTurn({ next: winnerID + "" });
         G.nextPlayer = TurnOrder.next(G, ctx);
       }
-    });
+    }
     winner.suns.splice(winner.suns.indexOf(maxBid), 1);
     G.sun = maxBid;
     G.auctionTrack = [];

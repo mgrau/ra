@@ -8,6 +8,7 @@
     "start": "parcel local.html",
     "multiplayer": "parcel index.html",
     "build": "parcel build index.html --public-url https://mgrau.dev/ra/",
+    "build server": "tsc -p tsconfig.json",
     "server": "npx ts-node src/server.ts",
     "test": "cross-env NODE_ENV=test jest --no-cache",
     "test:coverage": "cross-env NODE_ENV=test jest --no-cache --coverage"

@@ -39,12 +39,12 @@ export const Ra = Game({
       Auction: {
         movesPerTurn: 1,
         allowedMoves: ["pass", "bid"],
-        endPhaseIf: (G: GameState, ctx) =>
+        endPhaseIf: (G: GameState, ctx: IGameCtx) =>
           G.players.every(
             player =>
               player.bid != null || player.pass || player.suns.length == 0
           ),
-        onPhaseEnd: (G: GameState, ctx) => AuctionEnd(G, ctx)
+        onPhaseEnd: (G: GameState, ctx: IGameCtx) => AuctionEnd(G, ctx)
       },
       Discard: {
         allowedMoves: ["discard"]

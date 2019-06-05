@@ -4,9 +4,6 @@ import { Tile } from "./tile";
 export default function StripSecrets(G: GameState, playerID: string) {
   let secretG = { ...G };
 
-  if (secretG.tiles !== undefined) {
-    delete secretG.tiles;
-  }
 
   // if (secretG.players) {
   //   secretG.players = secretG.players.map((player, index) => {

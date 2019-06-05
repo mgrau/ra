@@ -5,6 +5,10 @@
   padding: 1vh;
 }
 
+#players .player.this-player {
+  background-color: rgba(255, 30, 0, 0.137);
+}
+
 #players .player > div {
   margin-bottom: 0.5vh;
 }

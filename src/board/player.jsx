@@ -62,7 +62,7 @@ export default class Player extends React.Component {
     ));
 
     const actions =
-      this.props.active && !this.props.gameover ? (
+      this.props.active && this.props.thisPlayer && !this.props.gameover ? (
         <Actions
           pass={this.pass}
           auctionTrackLength={this.props.auctionTrackLength}
@@ -78,7 +78,13 @@ export default class Player extends React.Component {
         ""
       );
     return (
-      <div className={"player" + (this.props.active ? " active" : "")}>
+      <div
+        className={
+          "player" +
+          (this.props.active ? " active" : "") +
+          (this.props.thisPlayer ? " this-player" : "")
+        }
+      >
         <div>
           {ra} Player {this.props.playerID}
           <Score
@@ -109,7 +115,7 @@ class PlayerTiles extends React.Component {
       this.props.allowedMoves.includes("discard") &&
       (CivilizationType[type] != null || MonumentType[type] != null)
     ) {
-      console.log({discard: type})
+      console.log({ discard: type });
       this.props.moves.discard(type);
     }
   }

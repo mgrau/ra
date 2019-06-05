@@ -9,7 +9,11 @@
 - add a rules summary
 - add a simple AI
 - add waiting icon when you are waiting for another player
-- shade active player's pane
+- describe what action is happening
+- add toggleable heuristics
+  - auction track score
+  - probaiblity of drawing a ra tile
+  - expected number of turns
 
 ## bugs
 

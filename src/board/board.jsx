@@ -103,9 +103,9 @@ export default class RaBoard extends React.Component {
     const players = this.props.G.players.map((player, index) => (
       <Player
         key={index}
-        active={
-          index == this.props.ctx.currentPlayer &&
-          (this.props.playerID == index || this.props.playerID == undefined)
+        active={index == this.props.ctx.currentPlayer}
+        thisPlayer={
+          this.props.playerID == index || this.props.playerID == undefined
         }
         playerID={index}
         {...player}
@@ -125,7 +125,6 @@ export default class RaBoard extends React.Component {
     ));
     return (
       <div>
-        {playerID}
         {epoch}
         <div id="ra-board">
           <div id="ra-track">

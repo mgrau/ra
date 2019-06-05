@@ -8,6 +8,8 @@
 - display log
 - add a rules summary
 - add a simple AI
+- add waiting icon when you are waiting for another player
+- shade active player's pane
 
 ## bugs
 

@@ -10,12 +10,19 @@
 
 #epoch {
   margin: 1vh;
-  /* text-align: center; */
+  width: 112vh;
+  text-align: center;
+}
+
+#info {
+  margin: 1vh;
+  width: 112vh;
+  text-align: center;
+  font-size: 80%;
 }
 
 #playerID {
   margin: 1vh;
-  /* text-align: center; */
 }
 
 #ra-board {

@@ -75,7 +75,16 @@ export default class RaBoard extends React.Component {
       </div>
     );
 
-    const playerID = <div id="playerID">Player: {this.props.playerID}</div>;
+    let info = "";
+    if (this.props.ctx.currentPlayer == this.props.playerID) {
+      info = "Your Turn";
+    } else if (this.props.ctx.phase == "Auction") {
+      info = `Waiting for Player ${this.props.ctx.currentPlayer} to bid...`;
+    } else if (this.props.ctx.phase == "Action") {
+      info = `Waiting for Player ${this.props.ctx.currentPlayer} to move...`;
+    } else if (this.props.ctx.phase == "Discard") {
+      info = `Waiting for Player ${this.props.ctx.currentPlayer} to discard...`;
+    }
 
     const raTrack = this.props.G.raTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
@@ -127,6 +136,7 @@ export default class RaBoard extends React.Component {
     return (
       <div>
         {epoch}
+        <div id="info">{info}</div>
         <div id="ra-board">
           <div id="ra-track">
             {raTrack}

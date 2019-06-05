@@ -114,7 +114,7 @@ test("invoke", () => {
   var store: { G: GameState; ctx: any };
 
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("0");
 
   client.moves.invoke();
@@ -144,7 +144,7 @@ test("invoke", () => {
 
   client.moves.bid(2);
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
 });
 

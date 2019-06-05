@@ -28,11 +28,11 @@ export const Ra = Game({
     discard
   },
   flow: {
-    startingPhase: "Action",
+    startingPhase: "Draw",
     endTurn: false,
     endPhase: false,
     phases: {
-      Action: {
+      Draw: {
         movesPerTurn: 1,
         allowedMoves: ["draw", "invoke", "god"]
       },

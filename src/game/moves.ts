@@ -5,6 +5,7 @@ import EndEpoch from "./epoch";
 
 export function draw(G: GameState, ctx: IGameCtx) {
   if (G.tiles != undefined) {
+    G.tiles = ctx.random.Shuffle(G.tiles);
     if (G.auctionTrack.length < 8) {
       const tile: Tile = G.tiles.pop();
       if (tile.tileType == TileType.Ra) {
@@ -122,7 +123,7 @@ export function discard(
     G.discard.civilization = 0;
     G.discard.monument = 0;
     ctx.events.endTurn({ next: G.nextPlayer + "" });
-    ctx.events.endPhase({ next: "Action" });
+    ctx.events.endPhase({ next: "Draw" });
     G.nextPlayer = null;
   }
 }

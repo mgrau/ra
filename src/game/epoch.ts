@@ -17,7 +17,7 @@ export default function EndEpoch(G: GameState, ctx: IGameCtx) {
   const maxSuns = G.players.map(player => Math.max(...player.suns));
   ctx.events.endPhase({ next: "EndEpoch" });
   ctx.events.endTurn({ next: maxSuns.indexOf(Math.max(...maxSuns)) + "" });
-  ctx.events.endPhase({ next: "Action" });
+  ctx.events.endPhase({ next: "Draw" });
 
   // end the game if
   if (G.epoch == 3) {

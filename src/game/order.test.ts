@@ -40,7 +40,7 @@ test("order 2 player", () => {
   client.moves.draw();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   store = client.store.getState();
@@ -55,12 +55,12 @@ test("order 2 player", () => {
   client.moves.bid(3);
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("0");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("0");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 });
 
 test("order 3 player", () => {
@@ -99,7 +99,7 @@ test("order 3 player", () => {
   client.moves.draw();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("0");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   store = client.store.getState();
@@ -119,17 +119,17 @@ test("order 3 player", () => {
   client.moves.bid(2);
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("2");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 });
 
 test("order end of epoch", () => {

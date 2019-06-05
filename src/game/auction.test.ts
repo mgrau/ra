@@ -21,7 +21,7 @@ test("auction end", () => {
 
   var store: { G: GameState; ctx: any };
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("0");
 
   client.moves.invoke();
@@ -41,7 +41,7 @@ test("auction end", () => {
 
   client.moves.bid(2);
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
 });
 
@@ -77,7 +77,7 @@ test("drought discard", () => {
 
   var store: { G: GameState; ctx: any };
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("0");
 
   client.moves.invoke();
@@ -97,7 +97,7 @@ test("drought discard", () => {
 
   client.moves.bid(2);
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles.length).toBe(2);
   expect(store.G.players[0].tiles).toStrictEqual([
@@ -118,7 +118,7 @@ test("drought discard", () => {
   client.moves.pass();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("0");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.G.auctionTrack.length).toBe(0);
   expect(store.G.players[1].tiles.length).toBe(0);
 });
@@ -157,7 +157,7 @@ test("funeral discard", () => {
   client.moves.bid(8);
   client.moves.bid(11);
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles.length).toBe(1);
   expect(store.G.players[0].tiles).toStrictEqual([
@@ -220,7 +220,7 @@ test("war discard", () => {
   client.moves.discard(CivilizationType.art);
   store = client.store.getState();
   expect(store.G.players[1].tiles.length).toBe(1);
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
 
   expect(store.G.players[1].tiles).toStrictEqual([
@@ -246,7 +246,7 @@ test("war discard", () => {
 
   client.moves.bid(2);
   store = client.store.getState();
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles.length).toBe(0);
 });
@@ -321,7 +321,7 @@ test("earthquake discard", () => {
   client.moves.discard(MonumentType.statue);
   store = client.store.getState();
   expect(store.G.players[0].tiles.length).toBe(3);
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
   expect(store.ctx.currentPlayer).toBe("1");
   expect(store.G.players[0].tiles).toStrictEqual([
     <Tile>{

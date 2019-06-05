@@ -2,17 +2,16 @@
 
 ## features
 
-- tell player how many tiles they must discard
 - add test that score can't go negative
 - add hotkeys
 - display log
 - add a rules summary
-- add a simple AI
 - add waiting icon when you are waiting for another player
 - describe what action is happening
+- add a simple AI
 - add toggleable heuristics
   - auction track score
-  - probaiblity of drawing a ra tile
+  - probability of drawing a ra tile
   - expected number of turns
 
 ## bugs

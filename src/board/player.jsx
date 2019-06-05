@@ -44,13 +44,17 @@ export default class Player extends React.Component {
   }
 
   render() {
-    const ra = this.props.raPlayer ? <span className="raPlayer">Ra!</span> : "";
+    const ra = this.props.raPlayer ? (
+      <span className="raPlayer">Ra!</span>
+    ) : (
+      <span />
+    );
 
     const suns = this.props.suns.map((sun, index) => (
       <Sun
         key={index}
         value={sun}
-        active={this.props.active}
+        active={this.props.active && this.props.thisPlayer}
         selected={sun == this.state.bid && sun != this.props.bid}
         locked={sun == this.props.bid}
         bid={this.bid}
@@ -77,6 +81,21 @@ export default class Player extends React.Component {
       ) : (
         ""
       );
+
+    const discardCivilizations =
+      this.props.discard.civilization > 0 &&
+      this.props.active &&
+      this.props.thisPlayer
+        ? `Discard ${this.props.discard.civilization} Civilizations`
+        : "";
+
+    const discardMonuments =
+      this.props.discard.monument > 0 &&
+      this.props.active &&
+      this.props.thisPlayer
+        ? `Discard ${this.props.discard.monument} Monuments`
+        : "";
+
     return (
       <div
         className={
@@ -97,9 +116,14 @@ export default class Player extends React.Component {
           {suns}
           {usedSuns}
         </div>
-
+        <div className="discard">
+          <div>{discardCivilizations}</div>
+          <div>{discardMonuments}</div>
+        </div>
         <PlayerTiles
+          active={this.props.active && this.props.thisPlayer}
           tiles={this.props.tiles}
+          discard={this.props.discard}
           allowedMoves={this.props.allowedMoves}
           moves={this.props.moves}
         />
@@ -215,6 +239,11 @@ class PlayerTiles extends React.Component {
 
     return (
       <Collapsible
+        open={
+          (this.props.discard.civilization > 0 ||
+            this.props.discard.monument > 0) &&
+          this.props.active
+        }
         trigger={trigger}
         triggerWhenOpen={triggerWhenOpen}
         transitionTime={100}

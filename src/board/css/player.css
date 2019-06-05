@@ -30,6 +30,11 @@
   display: flex;
 }
 
+#players .player .discard {
+  color: gray;
+  font-size: 75%;
+}
+
 #players .player .player-tiles {
   display: grid;
   grid-template-columns: 10vh 10vh;

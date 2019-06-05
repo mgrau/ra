@@ -112,6 +112,7 @@ export default class RaBoard extends React.Component {
         raPlayer={index == this.props.G.ra}
         auctionTrackLength={this.props.G.auctionTrack.length}
         canPass={canPass(this.props.G, this.props.ctx)}
+        discard={this.props.G.discard}
         allowedMoves={this.props.ctx.allowedMoves}
         moves={this.props.moves}
         god={{

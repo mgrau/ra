@@ -4,7 +4,19 @@ import { IGameCtx } from "boardgame.io/core";
 import { canPass } from "./moves";
 import { TileType } from "./tile";
 
+import { RandomBot, MCTSBot } from "boardgame.io/ai";
+
+class myBot extends MCTSBot {
+  constructor({ enumerate, seed, objectives, game, iterations, playoutDepth }) {
+    super({ enumerate, seed, objectives, game, iterations, playoutDepth });
+
+    this.iterations = 10;
+    this.playoutDepth = 5;
+  }
+}
+
 const RaAI = AI({
+  bot: myBot,
   enumerate: (G: GameState, ctx: IGameCtx) => {
     let moves = [];
     if (ctx.allowedMoves.includes("draw")) {

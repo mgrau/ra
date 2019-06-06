@@ -55,7 +55,7 @@ test("drought discard", () => {
         sun: 1,
         ra: null,
         players: players,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         raTrack: [],
         auctionTrack: [
@@ -132,7 +132,7 @@ test("funeral discard", () => {
         epoch: 1,
         sun: 1,
         ra: null,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         players: players,
         raTrack: [],
@@ -348,7 +348,7 @@ test("discard auction track", () => {
         epoch: 1,
         sun: 1,
         ra: null,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         players: players,
         raTrack: [],
@@ -412,7 +412,7 @@ test("no suns end epoch", () => {
         sun: 1,
         ra: null,
         players: players,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         raTrack: [],
         auctionTrack: [<Tile>{}],
@@ -506,6 +506,7 @@ test("end of epoch discard", () => {
 
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.G.epoch).toBe(1);
 
   client.moves.invoke();
   store = client.store.getState();
@@ -513,6 +514,16 @@ test("end of epoch discard", () => {
 
   client.moves.bid(2);
 
+  client.moves.pass();
+
   store = client.store.getState();
   expect(store.ctx.phase).toBe("Discard");
+
+  client.moves.discard(MonumentType.sphinx);
+  client.moves.discard(MonumentType.statue);
+
+  store = client.store.getState();
+  expect(store.ctx.phase).toBe("Draw");
+  expect(store.ctx.currentPlayer).toBe("0");
+  expect(store.G.epoch).toBe(2);
 });

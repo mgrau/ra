@@ -124,6 +124,13 @@ export function discard(
     ctx.events.endTurn({ next: G.nextPlayer + "" });
     ctx.events.endPhase({ next: "Draw" });
     G.nextPlayer = null;
+    G.players[ctx.currentPlayer].suns.splice(
+      G.players[ctx.currentPlayer].suns.indexOf(G.sun),
+      1
+    );
+    if (G.players.every(player => player.suns.length == 0)) {
+      EndEpoch(G, ctx);
+    }
   }
 }
 

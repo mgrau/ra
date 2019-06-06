@@ -58,13 +58,14 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
           tile => tile.tileType != TileType.Monument
         );
       }
-      if (G.discard.civilization > 0 || G.discard.monument > 0) {
-        ctx.events.endPhase({ next: "Discard" });
-        ctx.events.endTurn({ next: winnerID + "" });
-        G.nextPlayer = TurnOrder.next(G, ctx);
-      }
     }
-    winner.suns.splice(winner.suns.indexOf(maxBid), 1);
+    if (G.discard.civilization > 0 || G.discard.monument > 0) {
+      ctx.events.endPhase({ next: "Discard" });
+      ctx.events.endTurn({ next: winnerID + "" });
+      G.nextPlayer = TurnOrder.next(G, ctx);
+    } else {
+      winner.suns.splice(winner.suns.indexOf(maxBid), 1);
+    }
     G.sun = maxBid;
     G.auctionTrack = [];
   }
@@ -74,7 +75,10 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
     player.pass = false;
   });
 
-  if (G.players.every(player => player.suns.length == 0)) {
+  if (
+    G.players.every(player => player.suns.length == 0) &&
+    (G.discard.civilization == 0 && G.discard.monument == 0)
+  ) {
     EndEpoch(G, ctx);
   }
   return G;

@@ -39,7 +39,7 @@ export const Ra = Game({
       Auction: {
         movesPerTurn: 1,
         allowedMoves: ["pass", "bid"],
-        endPhaseIf: (G: GameState, ctx: IGameCtx) =>
+        endPhaseIf: (G: GameState) =>
           G.players.every(
             player =>
               player.bid != null || player.pass || player.suns.length == 0

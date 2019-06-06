@@ -142,7 +142,7 @@ test("order end of epoch", () => {
         sun: 1,
         ra: null,
         players: players,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         raTrack: [
           <Tile>{ tileType: TileType.Ra },
@@ -266,7 +266,7 @@ test("order end of epoch suns", () => {
         epoch: 1,
         sun: 1,
         ra: null,
-        discard: null,
+        discard: { civilization: 0, monument: 0 },
         nextPlayer: null,
         players: players,
         raTrack: [],

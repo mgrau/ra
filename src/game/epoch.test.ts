@@ -13,6 +13,8 @@ test("game end", () => {
         epoch: 3,
         sun: 1,
         ra: null,
+        nextPlayer: null,
+        discard: { civilization: 0, monument: 0 },
         players: players,
         raTrack: [
           <Tile>{ tileType: TileType.Ra },

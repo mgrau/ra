@@ -11,8 +11,6 @@ test("secrets", () => {
 
   var secretG;
   secretG = StripSecrets(store.G, "0");
-  expect(secretG.tiles).toBeUndefined();
 
-  secretG = StripSecrets(secretG, "0");
-  expect(secretG.tiles).toBeUndefined();
+  expect(secretG.tiles).not.toEqual(store.G.tiles);
 });

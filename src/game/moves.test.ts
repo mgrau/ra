@@ -46,21 +46,17 @@ test("draw tiles multiplayer", () => {
 
   var store: { G: GameState; ctx: any };
   store = player0.store.getState();
-  expect(store.G.tiles).toBeUndefined();
   expect(store.G.auctionTrack.length).toBe(0);
 
   store = player1.store.getState();
-  expect(store.G.tiles).toBeUndefined();
   expect(store.G.auctionTrack.length).toBe(0);
 
   player0.moves.draw();
   store = player0.store.getState();
   expect(store.G.auctionTrack.length).toBe(1);
-  expect(store.G.tiles).toBeUndefined();
 
   store = player1.store.getState();
   expect(store.G.auctionTrack.length).toBe(1);
-  expect(store.G.tiles).toBeUndefined();
 });
 
 test("full auction track", () => {

@@ -38,27 +38,26 @@ export default function AuctionEnd(G: GameState, ctx: IGameCtx) {
         G.discard.monument += 2;
       }
     });
-    if (G.discard != undefined) {
-      if (
-        G.discard.civilization >=
-        winner.tiles.filter(tile => tile.tileType == TileType.Civilization)
-          .length
-      ) {
-        G.discard.civilization = 0;
-        winner.tiles = winner.tiles.filter(
-          tile => tile.tileType != TileType.Civilization
-        );
-      }
-      if (
-        G.discard.monument >=
-        winner.tiles.filter(tile => tile.tileType == TileType.Monument).length
-      ) {
-        G.discard.monument = 0;
-        winner.tiles = winner.tiles.filter(
-          tile => tile.tileType != TileType.Monument
-        );
-      }
+
+    if (
+      G.discard.civilization >=
+      winner.tiles.filter(tile => tile.tileType == TileType.Civilization).length
+    ) {
+      G.discard.civilization = 0;
+      winner.tiles = winner.tiles.filter(
+        tile => tile.tileType != TileType.Civilization
+      );
     }
+    if (
+      G.discard.monument >=
+      winner.tiles.filter(tile => tile.tileType == TileType.Monument).length
+    ) {
+      G.discard.monument = 0;
+      winner.tiles = winner.tiles.filter(
+        tile => tile.tileType != TileType.Monument
+      );
+    }
+
     if (G.discard.civilization > 0 || G.discard.monument > 0) {
       ctx.events.endPhase({ next: "Discard" });
       ctx.events.endTurn({ next: winnerID + "" });

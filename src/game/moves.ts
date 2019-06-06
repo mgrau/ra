@@ -5,6 +5,7 @@ import EndEpoch from "./epoch";
 
 export function draw(G: GameState, ctx: IGameCtx) {
   if (G.tiles != undefined) {
+    G.tiles = ctx.random.Shuffle(G.tiles);
     if (G.auctionTrack.length < 8) {
       const tile: Tile = G.tiles.pop();
       if (tile.tileType == TileType.Ra) {

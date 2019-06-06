@@ -16,6 +16,7 @@
 
 ## bugs
 
+- at end of epoch disaster tiles aren't resolved.
 - resolve tie for points. The player with highest numbered sun disk wins.
 - resolve disaster tiles when obtained using a god tile.
 - scoring doesn't work when player score is hidden.

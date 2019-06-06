@@ -122,7 +122,7 @@ export function discard(
     G.discard.civilization = 0;
     G.discard.monument = 0;
     ctx.events.endTurn({ next: G.nextPlayer + "" });
-    ctx.events.endPhase({ next: "Action" });
+    ctx.events.endPhase({ next: "Draw" });
     G.nextPlayer = null;
   }
 }

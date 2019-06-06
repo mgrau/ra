@@ -46,7 +46,7 @@ test("score epoch 1", () => {
   client.moves.pass();
   store = client.store.getState();
   expect(store.ctx.currentPlayer).toBe("1");
-  expect(store.ctx.phase).toBe("Action");
+  expect(store.ctx.phase).toBe("Draw");
 
   client.moves.draw();
   client.moves.pass();

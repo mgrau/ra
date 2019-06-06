@@ -80,7 +80,7 @@ export default class RaBoard extends React.Component {
       info = "Your Turn";
     } else if (this.props.ctx.phase == "Auction") {
       info = `Waiting for Player ${this.props.ctx.currentPlayer} to bid...`;
-    } else if (this.props.ctx.phase == "Action") {
+    } else if (this.props.ctx.phase == "Draw") {
       info = `Waiting for Player ${this.props.ctx.currentPlayer} to move...`;
     } else if (this.props.ctx.phase == "Discard") {
       info = `Waiting for Player ${this.props.ctx.currentPlayer} to discard...`;

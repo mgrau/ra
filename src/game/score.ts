@@ -6,6 +6,7 @@ import {
   CivilizationType,
   MonumentType
 } from "./tile";
+import { Player } from "./player";
 export interface Score {
   pharaohs: number;
   gold: number;
@@ -18,15 +19,22 @@ export interface Score {
 }
 
 export default function Score(G: GameState) {
-  const pharaohs = G.players.map(player =>
-    Count(player.tiles, TileType.Pharaoh)
-  );
+  const score = tabulateScore(G.players, G.epoch);
 
-  const sunTotal = G.players.map(player =>
+  G.players.forEach((player, index) => {
+    player.points = Math.max(0, player.points + score[index].total);
+    player.score[G.epoch - 1] = score[index];
+  });
+}
+
+export function tabulateScore(players: Player[], epoch: number): Score[] {
+  const pharaohs = players.map(player => Count(player.tiles, TileType.Pharaoh));
+
+  const sunTotal = players.map(player =>
     player.suns.reduce((a, b) => a + b, 0)
   );
 
-  G.players.forEach(player => {
+  return players.map(player => {
     const score = <Score>{
       pharaohs: 0,
       gold: 0,
@@ -68,7 +76,7 @@ export default function Score(G: GameState) {
       score.civilization = 5 * (numCivilizationTypes - 2);
     }
 
-    if (G.epoch == 3) {
+    if (epoch == 3) {
       if (Math.max(...sunTotal) != Math.min(...sunTotal)) {
         if (player.suns.reduce((a, b) => a + b, 0) == Math.max(...sunTotal)) {
           score.suns = 5;
@@ -111,8 +119,7 @@ export default function Score(G: GameState) {
     score.total = Object.keys(score)
       .map(key => score[key])
       .reduce((a, b) => a + b);
-    player.points = Math.max(0, player.points + score.total);
-    player.score[G.epoch - 1] = score;
+    return score;
   });
 }
 

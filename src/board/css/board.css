@@ -8,10 +8,27 @@
   /* justify-items: center; */
 }
 
+.tips-visible {
+  visibility: visible;
+}
+
+.tips-invisible {
+  visibility: hidden;
+}
+
 #epoch {
   margin: 1vh;
   width: 112vh;
   text-align: center;
+}
+
+#final-ra {
+  color: gray;
+  font-size: 75%;
+}
+
+#final-ra .ra-probability {
+  font-size: 150%;
 }
 
 #info {

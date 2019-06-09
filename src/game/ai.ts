@@ -5,6 +5,7 @@ import { canPass } from "./moves";
 import { TileType } from "./tile";
 
 import { RandomBot, MCTSBot } from "boardgame.io/ai";
+import Score, { tabulateScore } from "./score";
 
 class myBot extends MCTSBot {
   constructor({ enumerate, seed, objectives, game, iterations, playoutDepth }) {
@@ -57,3 +58,28 @@ const RaAI = AI({
   }
 });
 export default RaAI;
+
+export function raProbability(G: GameState): number {
+  return (
+    G.tiles.filter(tile => tile.tileType == TileType.Ra).length / G.tiles.length
+  );
+}
+
+export function currentScore(G: GameState, playerID: number): number {
+  return Math.max(
+    0,
+    G.players[playerID].points + tabulateScore(G.players, 3)[playerID].total
+  );
+}
+
+export function auctionScore(G: GameState, playerID: number): number {
+  let proposedG = { ...G };
+  proposedG.players = G.players.map(player => {
+    return { ...player };
+  });
+  proposedG.players[playerID].tiles = [
+    ...proposedG.players[playerID].tiles,
+    ...proposedG.auctionTrack
+  ];
+  return currentScore(proposedG, playerID) - currentScore(G, playerID);
+}

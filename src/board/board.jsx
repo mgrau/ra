@@ -5,6 +5,7 @@ import Player from "./player";
 import { raTrackLength, canPass } from "./../game/moves";
 import { Count } from "./../game/score";
 import { TileType } from "./../game/tile";
+import { raProbability } from "./../game/ai";
 
 import "./css/board.css";
 import "./css/lobby.css";
@@ -15,7 +16,8 @@ export default class RaBoard extends React.Component {
     super(props);
     this.state = {
       selectedTiles: [],
-      godSelect: false
+      godSelect: false,
+      tips: false
     };
 
     this.beginGodSelect = this.beginGodSelect.bind(this);
@@ -92,9 +94,24 @@ export default class RaBoard extends React.Component {
 
     const raSpaces = [
       ...Array(
-        raTrackLength(this.props.ctx.numPlayers) - this.props.G.raTrack.length
+        raTrackLength(this.props.ctx.numPlayers) -
+          this.props.G.raTrack.length -
+          1
       ).keys()
     ].map((tile, index) => <div key={index + 8} className="tile space" />);
+    raSpaces.push(
+      <div key="finalRa" className="tile space">
+        <div
+          id="final-ra"
+          className={this.state.tips ? "tips-visible" : "tips-invisible"}
+        >
+          <div>probability to draw Ra:</div>
+          <div className="ra-probability">
+            {raProbability(this.props.G).toFixed(3)}
+          </div>
+        </div>
+      </div>
+    );
 
     const auctionTrack = this.props.G.auctionTrack.map((tile, index) => (
       <Tile

@@ -7,4 +7,9 @@
   --pharaoh: rgb(36, 114, 55);
   --civilization: rgb(96, 118, 121);
   --disaster: rgb(0, 0, 0);
+
+  --raTrack: rgb(212, 172, 172);
+  --auctionTrack: rgb(169, 182, 218);
+
+  --thisPlayer: rgba(255, 30, 0, 0.137);
 }

@@ -5,7 +5,6 @@
 #root {
   font-size: 2vh;
   display: grid;
-  /* justify-items: center; */
 }
 
 .tips-visible {
@@ -55,7 +54,7 @@
 }
 
 #ra-track {
-  border: 1px solid rgb(212, 172, 172);
+  border: 1px solid var(--raTrack);
   border-radius: 1vh;
   display: grid;
   grid-template-columns: repeat(var(--colNum), 10vh);
@@ -67,7 +66,7 @@
 }
 
 #auction-track {
-  border: 1px solid rgb(169, 182, 218);
+  border: 1px solid var(--auctionTrack);
   border-radius: 1vh;
   width: 87vh;
   display: grid;

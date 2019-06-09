@@ -5,21 +5,23 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  background-color: rgb(160, 60, 42);
+  background-color: rgb(175, 59, 39);
   color: rgb(255, 230, 89);
-  border: 0.6vh solid rgb(253, 221, 42);
+  border: 0.6vh solid rgb(241, 211, 39);
   box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
   margin: 0.5vh;
   -webkit-user-select: none;
 }
 
 .sun.selected {
-  background-color: rgb(160, 60, 42);
+  background-color: rgb(216, 81, 57);
   box-shadow: 0px 0px 1vh 0.2vh rgb(160, 60, 42);
 }
 
 .sun.locked {
-  background-color: rgb(104, 39, 27);
+  background-color: rgb(255, 82, 29);
+  border-color: yellow;
+  box-shadow: 0px 0px 1vh 0.5vh rgb(255, 174, 0);
 }
 
 .sun.used {

@@ -101,7 +101,9 @@ export default class Player extends React.Component {
         className={
           "player" +
           (this.props.active ? " active" : "") +
-          (this.props.thisPlayer ? " this-player" : "")
+          (this.props.thisPlayer && !this.props.singlePlayer
+            ? " this-player"
+            : "")
         }
       >
         <div>

@@ -2,6 +2,7 @@ import React from "react";
 import Sun from "./sun";
 import Tile from "./tile";
 import Player from "./player";
+import Info from "./info";
 import { raTrackLength, canPass } from "./../game/moves";
 import { Count } from "./../game/score";
 import { TileType } from "./../game/tile";
@@ -77,17 +78,6 @@ export default class RaBoard extends React.Component {
       </div>
     );
 
-    let info = "";
-    if (this.props.ctx.currentPlayer == this.props.playerID) {
-      info = "Your Turn";
-    } else if (this.props.ctx.phase == "Auction") {
-      info = `Waiting for Player ${this.props.ctx.currentPlayer} to bid...`;
-    } else if (this.props.ctx.phase == "Draw") {
-      info = `Waiting for Player ${this.props.ctx.currentPlayer} to move...`;
-    } else if (this.props.ctx.phase == "Discard") {
-      info = `Waiting for Player ${this.props.ctx.currentPlayer} to discard...`;
-    }
-
     const raTrack = this.props.G.raTrack.map((tile, index) => (
       <Tile key={index} {...tile} />
     ));
@@ -133,6 +123,7 @@ export default class RaBoard extends React.Component {
         thisPlayer={
           this.props.playerID == index || this.props.playerID == undefined
         }
+        singlePlayer={this.props.playerID == undefined}
         playerID={index}
         {...player}
         raPlayer={index == this.props.G.ra}
@@ -153,7 +144,7 @@ export default class RaBoard extends React.Component {
     return (
       <div>
         {epoch}
-        <div id="info">{info}</div>
+        <Info ctx={this.props.ctx} />
         <div id="ra-board">
           <div id="ra-track">
             {raTrack}

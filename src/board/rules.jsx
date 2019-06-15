@@ -8,15 +8,7 @@ export default class Rules extends React.Component {
   render() {
     return (
       <div id="rules" tabIndex={-1}>
-        <DialogContent>
-          These are the rules.
-          <Typography variant="h6" id="modal-title">
-            Text in a modal
-          </Typography>
-          <Typography variant="subtitle1" id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </DialogContent>
+        Rules
       </div>
     );
   }

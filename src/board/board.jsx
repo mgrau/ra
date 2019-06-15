@@ -3,10 +3,13 @@ import Sun from "./sun";
 import Tile from "./tile";
 import Player from "./player";
 import Info from "./info";
+import Rules from "./rules";
 import { raTrackLength, canPass } from "./../game/moves";
 import { Count } from "./../game/score";
 import { TileType } from "./../game/tile";
 import { raProbability } from "./../game/ai";
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 
 import "./css/board.css";
 import "./css/lobby.css";
@@ -18,7 +21,8 @@ export default class RaBoard extends React.Component {
     this.state = {
       selectedTiles: [],
       godSelect: false,
-      tips: false
+      tips: false,
+      rulesOpen: false
     };
 
     this.beginGodSelect = this.beginGodSelect.bind(this);
@@ -143,6 +147,16 @@ export default class RaBoard extends React.Component {
     ));
     return (
       <div>
+        <Modal
+          open={this.state.rulesOpen}
+          onClose={() => this.setState({ rulesOpen: false })}
+        >
+          <Rules />
+        </Modal>
+        <Button onClick={() => this.setState({ rulesOpen: true })}>
+          Rules
+        </Button>
+
         {epoch}
         <Info ctx={this.props.ctx} />
         <div id="ra-board">

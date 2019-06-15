@@ -1,0 +1,9 @@
+#rules {
+  position: absolute;
+  width: 400;
+  background-color: white;
+  /* boxShadow: theme.shadows[5], */
+  /* padding: theme.spacing(4), */
+  outline: none;
+  tab-in
+}

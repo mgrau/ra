@@ -44,12 +44,12 @@
 #ra-board {
   border-radius: 1vh;
   display: grid;
-  grid-template-rows: 11.5vh 1fr 11.5vh;
   grid-gap: 1vh;
   padding: 1vh;
   margin: 1vh;
   justify-items: center;
-  width: 112vh;
+  min-width: calc(8 * 10vh + 1vh);
+  width: calc(var(--colNum) * 10vh + 1vh);
   box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
 }
 
@@ -57,24 +57,23 @@
   border: 1px solid var(--raTrack);
   border-radius: 1vh;
   display: grid;
-  grid-template-columns: repeat(var(--colNum), 10vh);
+  grid-template-columns: repeat(var(--colNum), 9vh);
+  grid-gap: 1vh;
   justify-items: center;
   justify-content: center;
   align-items: center;
-  grid-gap: 1vh;
   padding: 1vh;
 }
 
 #auction-track {
   border: 1px solid var(--auctionTrack);
   border-radius: 1vh;
-  width: 87vh;
   display: grid;
-  grid-template-columns: repeat(8, 10vh);
+  grid-template-columns: repeat(8, 9vh);
+  grid-gap: 1vh;
   justify-items: center;
   justify-content: center;
   align-items: center;
-  grid-gap: 1vh;
   padding: 1vh;
 }
 

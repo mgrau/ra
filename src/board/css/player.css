@@ -111,6 +111,10 @@
     padding: 5vw;
   }
 
+  #players .player.this-player {
+    order: -1;
+  }
+
   #players .player .Collapsible {
     padding: 3vw;
   }

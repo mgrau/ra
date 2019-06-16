@@ -1,9 +1,30 @@
 #rules {
-  position: absolute;
-  width: 400;
+  /* position: absolute; */
+  /* width: 400; */
   background-color: white;
   /* boxShadow: theme.shadows[5], */
   /* padding: theme.spacing(4), */
   outline: none;
-  tab-in
+  /* tab-in */
+  width: 40vh;
+  margin: 10vh;
+  padding: 5vh;
+  font-size: 100%;
+}
+
+#rules ul {
+  margin: 0;
+}
+
+#rules div {
+  margin-bottom: 2vh;
+}
+
+@media screen and (max-width: 450px) {
+  #rules {
+    width: 60%;
+    margin: 10%;
+    padding: 10%;
+    font-size: 150%;
+  }
 }

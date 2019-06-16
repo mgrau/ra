@@ -27,3 +27,13 @@
 .sun.used {
   opacity: 0.3;
 }
+
+@media screen and (max-width: 450px) {
+  .sun {
+    width: 10vw;
+    height: 10vw;
+    font-size: 80%;
+    border-width: 2vw;
+    margin: 2vw;
+  }
+}

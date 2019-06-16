@@ -10,7 +10,7 @@ const RaClient = Client({
   game: Ra,
   board: RaBoard,
   ai: RaAI,
-  debug: true
+  debug: false
 });
 
 ReactDOM.render(

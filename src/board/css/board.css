@@ -7,6 +7,13 @@
   display: grid;
 }
 
+@media screen and (min-width: 451px) {
+  #root {
+    min-width: calc(8 * 10vh + 1vh);
+    width: calc(var(--colNum) * 10vh + 1vh);
+  }
+}
+
 .tips-visible {
   visibility: visible;
 }
@@ -17,7 +24,6 @@
 
 #epoch {
   margin: 1vh;
-  width: 112vh;
   text-align: center;
 }
 
@@ -32,7 +38,6 @@
 
 #info {
   margin: 1vh;
-  width: 112vh;
   text-align: center;
   font-size: 80%;
 }
@@ -48,8 +53,6 @@
   padding: 1vh;
   margin: 1vh;
   justify-items: center;
-  min-width: calc(8 * 10vh + 1vh);
-  width: calc(var(--colNum) * 10vh + 1vh);
   box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
 }
 
@@ -85,4 +88,31 @@
 
 #players {
   display: flex;
+}
+
+@media screen and (max-width: 450px) {
+  #root {
+    font-size: 10vw;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  #ra-track {
+    grid-template-columns: repeat(var(--colNum), 1fr);
+  }
+
+  #ra-track .tile {
+    width: calc(70vw / var(--colNum));
+    height: 6vw;
+  }
+
+  #auction-track {
+    grid-template-columns: repeat(4, 32vw);
+    grid-template-rows: repeat(2, 32vw);
+  }
+
+  #players {
+    flex-direction: column;
+  }
 }

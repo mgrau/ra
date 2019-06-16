@@ -4,30 +4,35 @@
 
 .actions button {
   margin: 0.2vh;
-  width: 5vh;
+  width: 25%;
   height: 5vh;
   padding: 1vh;
-
   box-shadow: inset 0px 0px 14px -3px #f0f0f0;
-
   background: linear-gradient(to bottom, #e7e7e7 5%, #999ba7 100%);
-
   background-color: #dbe6c4;
-
-  border-radius: 0.5vh;
+  border-radius: 10%;
   border: 1px solid #b9b9b9;
   text-align: center;
   cursor: pointer;
   color: #585a57;
   font-family: Arial;
-  font-size: 1vh;
   font-weight: bold;
   text-decoration: none;
   outline: none;
   text-shadow: 0px 1px 0px #dddddd;
+  font-size: 1vh;
 }
 
 .actions button:active {
   position: relative;
   top: 1px;
+}
+
+@media screen and (max-width: 450px) {
+  .actions button {
+    margin: 2vw;
+    height: 20vw;
+    padding: 5vw;
+    font-size: 50%;
+  }
 }

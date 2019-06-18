@@ -46,6 +46,8 @@ export default class Player extends React.Component {
   render() {
     const ra = this.props.raPlayer ? (
       <span className="raPlayer">Ra!</span>
+    ) : this.props.pass ? (
+      <span className="passPlayer">Pass</span>
     ) : (
       <span />
     );

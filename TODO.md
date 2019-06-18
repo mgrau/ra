@@ -1,13 +1,13 @@
 # TODO
 
 ## features
-
+- display score summary on game end
+- add disasters to rules
 - add test that score can't go negative
 - add hotkeys
 - display log
-- add a rules summary
 - add waiting icon when you are waiting for another player
-- describe what action is happening
+- make it clearer when another player has passed
 - add a simple AI
 - add toggleable heuristics
   - auction track score
@@ -20,3 +20,4 @@
 - resolve disaster tiles when obtained using a god tile.
 - scoring doesn't work when player score is hidden.
 - players are allowed to underbid. Prevent this.
+- player tiles box overflow

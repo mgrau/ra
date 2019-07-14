@@ -109,7 +109,7 @@ export default class Player extends React.Component {
         }
       >
         <div>
-          {ra} Player {this.props.playerID}
+          {ra} <span>Player {this.props.playerID}</span>
           <Score
             id={this.props.playerID}
             points={this.props.points}

@@ -1,6 +1,7 @@
 .score {
   color: rgb(59, 113, 212);
   -webkit-user-select: none;
+  text-align: right;
 }
 
 .score .score-text {

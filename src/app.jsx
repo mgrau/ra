@@ -9,10 +9,15 @@ export default function App() {
       <div>
         <Route exact path="/" component={Home} />
         <Route exact path="/multiplayer" component={Multiplayer} />
-        <Route path="/local" component={Local} />
+        <Route exact path="/local" component={Local} />
+        <Route path="/join/:id" component={JoinMultiplayer} />
       </div>
     </Router>
   );
+}
+
+function JoinMultiplayer({ match }) {
+  return <Multiplayer gameID={match.params.id} />;
 }
 
 function Home() {
@@ -26,48 +31,6 @@ function Home() {
           <Link to="/local">Local Multiplayer</Link>
         </li>
       </ul>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-    </div>
-  );
-}
-
-function Topics({ match }) {
-  return (
-    <div>
-      <h2>Topics</h2>
-      <ul>
-        <li>
-          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
-      </ul>
-
-      <Route path={`${match.path}/:topicId`} component={Topic} />
-      <Route
-        exact
-        path={match.path}
-        render={() => <h3>Please select a topic.</h3>}
-      />
-    </div>
-  );
-}
-
-function Topic({ match }) {
-  return (
-    <div>
-      <h3>{match.params.topicId}</h3>
     </div>
   );
 }

@@ -5,12 +5,13 @@ import Button from "@material-ui/core/button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { Client } from "boardgame.io/react";
 import { Ra } from "./game/game.ts";
 import RaBoard from "./board/board";
 
-const StateEnum = {
+const LobbyStateEnum = {
   CREATE: 1,
   JOIN: 2,
   WAITING: 3,
@@ -22,29 +23,39 @@ export default class Multiplayer extends React.Component {
     super(props);
     this.server = `http://${window.location.hostname}:5001/games/ra`;
     this.state = {
-      state: StateEnum.CREATE,
+      lobbyState: sessionStorage.getItem("lobbyState"),
       name: "",
       numPlayers: 2,
-      playerID: null,
-      gameID: null,
-      credentials: null,
-      joinLink: null,
+      playerID: sessionStorage.getItem("playerID"),
+      gameID: sessionStorage.getItem("gameID"),
+      credentials: sessionStorage.getItem("credentials"),
       players: []
     };
   }
 
   componentDidMount() {
-    if (this.props.gameID == undefined) {
-      this.setState({ state: StateEnum.CREATE });
-    } else {
-      this.setState(
-        {
-          state: StateEnum.JOIN,
-          gameID: this.props.gameID
-        },
-        () => this.getRoom()
-      );
+    if (this.state.lobbyState == null) {
+      if (this.props.gameID == undefined) {
+        this.setLobbyState(LobbyStateEnum.CREATE);
+      } else {
+        this.setLobbyState(LobbyStateEnum.JOIN);
+        this.setState(
+          {
+            gameID: this.props.gameID
+          },
+          () => this.getRoom()
+        );
+      }
+    } else if (this.state.lobbyState == LobbyStateEnum.WAITING) {
+      this.scanner = setInterval(() => this.getRoom(), 1000);
     }
+  }
+
+  setLobbyState(lobbyState) {
+    this.setState({ lobbyState: lobbyState }, () => {
+      sessionStorage.setItem("lobbyState", lobbyState);
+      console.log({ lobbyState: lobbyState });
+    });
   }
 
   create = async () => {
@@ -53,12 +64,9 @@ export default class Multiplayer extends React.Component {
         numPlayers: this.state.numPlayers
       });
 
-      this.setState({ gameID: response.data.gameID }, () => {
-        this.setState({
-          joinLink: `${window.location.hostname}:${window.location.port}/join/${
-            this.state.gameID
-          }`
-        });
+      const gameID = response.data.gameID;
+      this.setState({ gameID: gameID }, () => {
+        sessionStorage.setItem("gameID", gameID);
         this.join();
       });
     }
@@ -76,12 +84,18 @@ export default class Multiplayer extends React.Component {
           playerName: this.state.name
         }
       );
-      this.setState({
-        playerID: playerID,
-        credentials: response.data.playerCredentials,
-        state: StateEnum.WAITING
-      });
-      this.getRoom();
+      const credentials = response.data.playerCredentials;
+      this.setLobbyState(LobbyStateEnum.WAITING);
+      this.setState(
+        {
+          playerID: playerID,
+          credentials: credentials
+        },
+        () => {
+          sessionStorage.setItem("playerID", playerID);
+          sessionStorage.setItem("credentials", credentials);
+        }
+      );
       this.scanner = setInterval(() => this.getRoom(), 1000);
     }
   };
@@ -90,11 +104,17 @@ export default class Multiplayer extends React.Component {
     const response = await axios.get(`${this.server}/${this.state.gameID}`);
     this.setState({ players: response.data.players });
     if (response.data.players.every(player => player.name != undefined)) {
-      this.setState({ state: StateEnum.READY });
+      this.setLobbyState(LobbyStateEnum.READY);
       clearInterval(this.scanner);
     }
     return response.data;
   };
+
+  joinLink() {
+    return `${window.location.hostname}:${window.location.port}/join/${
+      this.state.gameID
+    }`;
+  }
 
   render() {
     const RaClient = Client({
@@ -105,11 +125,12 @@ export default class Multiplayer extends React.Component {
       multiplayer: { server: `http://${window.location.hostname}:5001` }
     });
 
-    if (this.state.state == StateEnum.CREATE) {
+    if (this.state.lobbyState == LobbyStateEnum.CREATE) {
       return (
         <div>
           <FormControl>
             <TextField
+              autoComplete="off"
               id="outlined-name"
               label="Name"
               value={this.state.name}
@@ -146,18 +167,13 @@ export default class Multiplayer extends React.Component {
           </FormControl>
         </div>
       );
-    } else if (this.state.state == StateEnum.JOIN) {
-      console.log(this.state.players[0]);
+    } else if (this.state.lobbyState == LobbyStateEnum.JOIN) {
       return (
         <div>
           <div>
             <FormControl>
-              {`Join ${
-                this.state.players[0] == undefined
-                  ? ""
-                  : this.state.players[0].name
-              }'s Game?`}
               <TextField
+                autoComplete="off"
                 id="outlined-name"
                 label="Name"
                 value={this.state.name}
@@ -165,6 +181,15 @@ export default class Multiplayer extends React.Component {
                 margin="normal"
                 variant="outlined"
               />
+
+              <FormHelperText>
+                {`Join ${
+                  this.state.players[0] == undefined ||
+                  this.state.players[0].name == undefined
+                    ? ""
+                    : this.state.players[0].name
+                }'s Game?`}
+              </FormHelperText>
 
               <Button
                 variant="contained"
@@ -177,7 +202,7 @@ export default class Multiplayer extends React.Component {
           </div>
         </div>
       );
-    } else if (this.state.state == StateEnum.WAITING) {
+    } else if (this.state.lobbyState == LobbyStateEnum.WAITING) {
       const players = this.state.players.map((player, index) => (
         <div key={index}>
           [{player.id}] {player.name == undefined ? "..." : player.name}
@@ -187,7 +212,7 @@ export default class Multiplayer extends React.Component {
         <div>
           waiting...
           <div>
-            <a href={this.state.joinLink}>{this.state.joinLink}</a>
+            <a href={this.joinLink()}>{this.joinLink()}</a>
           </div>
           <div>{players}</div>
           <Button
@@ -201,7 +226,7 @@ export default class Multiplayer extends React.Component {
           </Button>
         </div>
       );
-    } else if (this.state.state == StateEnum.READY) {
+    } else if (this.state.lobbyState == LobbyStateEnum.READY) {
       return (
         <RaClient
           gameID={this.state.gameID}
@@ -209,6 +234,8 @@ export default class Multiplayer extends React.Component {
           credentials={this.state.credentials}
         />
       );
+    } else {
+      return "";
     }
   }
 }

@@ -4,7 +4,13 @@ import axios from "axios";
 import Container from "@material-ui/core/container";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Link from "@material-ui/core/Link";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Button from "@material-ui/core/button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -189,24 +195,11 @@ export default class Multiplayer extends React.Component {
         </div>
       );
     } else if (this.state.lobbyState == LobbyStateEnum.WAITING) {
-      const players = this.state.players.map((player, index) => (
-        <div key={index}>
-          [{player.id}] {player.name == undefined ? "..." : player.name}
-        </div>
-      ));
-
-      const link =
-        this.state.playerID == "0" ? (
-          <a href={this.joinLink()}>{this.joinLink()}</a>
-        ) : (
-          ""
-        );
       return (
-        <div>
-          {link}
-          <div>waiting...</div>
-          <div>{players}</div>
-        </div>
+        <Waiting
+          link={this.state.playerID == "0" ? this.joinLink() : null}
+          players={this.state.players}
+        />
       );
     } else if (this.state.lobbyState == LobbyStateEnum.READY) {
       return (
@@ -244,7 +237,7 @@ function CreateGame(props) {
           className={classes.select}
           value={props.numPlayers}
           onChange={event => {
-            props.onChange(event.target.value);
+            props.onChangeNumPlayers(event.target.value);
           }}
           label="Number of Players"
           select
@@ -274,6 +267,54 @@ function CreateGame(props) {
   );
 }
 
+function Waiting(props) {
+  const classes = useStyles();
+
+  const players = props.players.map((player, index) => (
+    <ListItem key={index} className={classes.list}>
+      <ListItemIcon>
+        {player.name == null ? (
+          <CircularProgress
+            size={20}
+            className={classes.progress}
+            color="secondary"
+          />
+        ) : (
+          <CheckCircleIcon color="primary" />
+        )}
+      </ListItemIcon>
+      <ListItemText primary={player.name == null ? " " : player.name} />
+    </ListItem>
+  ));
+
+  const text =
+    props.link == null ? (
+      ""
+    ) : (
+      <Typography className={classes.h2} component="h2" variant="h6">
+        Share this link with other players
+      </Typography>
+    );
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <Paper className={classes.paper}>
+        <Typography className={classes.h1} component="h1" variant="h5">
+          Waiting for Players to Join
+        </Typography>
+
+        <List component="nav">{players}</List>
+
+        {text}
+
+        <Link href={props.link} className={classes.link} color="secondary">
+          {props.link}
+        </Link>
+      </Paper>
+    </Container>
+  );
+}
+
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -288,10 +329,19 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     paddingBottom: theme.spacing(4)
   },
+  h2: {
+    margin: theme.spacing(1),
+    paddingTop: theme.spacing(4)
+  },
   select: {
     margin: theme.spacing(1)
   },
   button: {
     margin: theme.spacing(1)
+  },
+  link: {},
+  list: {
+    margin: theme.spacing(1),
+    height: theme.spacing(4)
   }
 }));

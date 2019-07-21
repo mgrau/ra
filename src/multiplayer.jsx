@@ -161,38 +161,16 @@ export default class Multiplayer extends React.Component {
       );
     } else if (this.state.lobbyState == LobbyStateEnum.JOIN) {
       return (
-        <div>
-          <div>
-            <FormControl>
-              <TextField
-                autoComplete="off"
-                id="outlined-name"
-                label="Name"
-                value={this.state.name}
-                onChange={event => this.setState({ name: event.target.value })}
-                margin="normal"
-                variant="outlined"
-              />
-
-              <FormHelperText>
-                {`Join ${
-                  this.state.players[0] == undefined ||
-                  this.state.players[0].name == undefined
-                    ? ""
-                    : this.state.players[0].name
-                }'s Game?`}
-              </FormHelperText>
-
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => this.join()}
-              >
-                Join Game
-              </Button>
-            </FormControl>
-          </div>
-        </div>
+        <JoinGame
+          ownerName={
+            this.state.players[0] == undefined ||
+            this.state.players[0].name == undefined
+              ? ""
+              : this.state.players[0].name
+          }
+          onChangeName={name => this.setState({ name })}
+          join={() => this.join()}
+        />
       );
     } else if (this.state.lobbyState == LobbyStateEnum.WAITING) {
       return (
@@ -261,6 +239,38 @@ function CreateGame(props) {
           onClick={() => props.create()}
         >
           Start
+        </Button>
+      </Paper>
+    </Container>
+  );
+}
+
+function JoinGame(props) {
+  const classes = useStyles();
+  return (
+    <Container component="main" maxWidth="xs">
+      <Paper className={classes.paper}>
+        <Typography className={classes.h1} component="h1" variant="h5">
+          Join {props.ownerName}'s Game
+        </Typography>
+        <TextField
+          autoComplete="off"
+          id="outlined-name"
+          label="Player Name"
+          value={props.name}
+          fullWidth
+          onChange={event => props.onChangeName(event.target.value)}
+          margin="normal"
+          variant="outlined"
+        />
+        <Button
+          className={classes.button}
+          variant="contained"
+          fullWidth
+          color="primary"
+          onClick={() => props.join()}
+        >
+          Join Game
         </Button>
       </Paper>
     </Container>

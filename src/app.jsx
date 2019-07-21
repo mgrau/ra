@@ -1,17 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Button from "@material-ui/core/button";
+import Container from "@material-ui/core/container";
+
 import Multiplayer from "./multiplayer";
 import Local from "./local";
 
 export default function App() {
   return (
     <Router>
-      <div>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/multiplayer" component={Multiplayer} />
-        <Route exact path="/local" component={Local} />
-        <Route path="/join/:id" component={JoinMultiplayer} />
-      </div>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/multiplayer" component={Multiplayer} />
+      <Route exact path="/local" component={Local} />
+      <Route path="/join/:id" component={JoinMultiplayer} />
     </Router>
   );
 }
@@ -22,15 +23,13 @@ function JoinMultiplayer({ match }) {
 
 function Home() {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="/multiplayer">Online Multiplayer</Link>
-        </li>
-        <li>
-          <Link to="/local">Local Multiplayer</Link>
-        </li>
-      </ul>
-    </div>
+    <Container maxWidth="sm">
+      <Link to="/multiplayer">
+        <Button variant="contained">Online Multiplayer</Button>
+      </Link>
+      <Link to="/local">
+        <Button variant="contained">Local Multiplayer</Button>
+      </Link>
+    </Container>
   );
 }

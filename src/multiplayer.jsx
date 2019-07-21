@@ -30,7 +30,7 @@ const LobbyStateEnum = {
 export default class Multiplayer extends React.Component {
   constructor(props) {
     super(props);
-    this.server = `http://${window.location.hostname}:5001/games/ra`;
+    this.server = `https://${window.location.hostname}/ra-lobby/games/ra`;
     this.state = {
       lobbyState: sessionStorage.getItem("lobbyState"),
       name: "",
@@ -133,7 +133,7 @@ export default class Multiplayer extends React.Component {
   };
 
   joinLink() {
-    return `${window.location.hostname}:${window.location.port}/join/${
+    return `${window.location.hostname}:${window.location.port}/ra/join/${
       this.state.gameID
     }`;
   }
@@ -144,7 +144,7 @@ export default class Multiplayer extends React.Component {
       game: Ra,
       board: RaBoard,
       debug: false,
-      multiplayer: { server: `http://${window.location.hostname}:5001` }
+      multiplayer: { server: `https://${window.location.hostname}:5002` }
     });
 
     if (this.state.lobbyState == LobbyStateEnum.CREATE) {

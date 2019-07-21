@@ -15,10 +15,10 @@ import Local from "./local";
 export default function App() {
   return (
     <Router>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/multiplayer" component={Multiplayer} />
-      <Route exact path="/local" component={Local} />
-      <Route path="/join/:id" component={JoinMultiplayer} />
+      <Route exact path="/ra/" component={Home} />
+      <Route exact path="/ra/multiplayer" component={Multiplayer} />
+      <Route exact path="/ra/local" component={Local} />
+      <Route path="/ra/join/:id" component={JoinMultiplayer} />
     </Router>
   );
 }
@@ -66,7 +66,7 @@ function Home() {
           fullWidth
           variant="contained"
           component={Link}
-          to="/multiplayer"
+          to="/ra/multiplayer"
         >
           Online Multiplayer
         </Button>
@@ -75,7 +75,7 @@ function Home() {
           fullWidth
           variant="contained"
           component={Link}
-          to="/local"
+          to="/ra/local"
         >
           Local Multiplayer
         </Button>

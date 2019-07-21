@@ -3,7 +3,7 @@
 }
 
 #root {
-  font-size: 2vh;
+  font-size: 1.5em;
   display: grid;
 }
 
@@ -92,7 +92,7 @@
 
 @media screen and (max-width: 450px) {
   #root {
-    font-size: 10vw;
+    font-size: 1.5em;
     grid-template-rows: 1fr 1fr 1fr;
     margin: 0px;
     padding: 0px;
@@ -103,13 +103,15 @@
   }
 
   #ra-track .tile {
-    width: calc(70vw / var(--colNum));
-    height: 6vw;
+    width: calc(40vw / var(--colNum));
+    height: 4vw;
+    font-weight: bold;
+    border-width: 1.5vw;
   }
 
   #auction-track {
-    grid-template-columns: repeat(4, 32vw);
-    grid-template-rows: repeat(2, 32vw);
+    grid-template-columns: repeat(4, 20vw);
+    grid-template-rows: repeat(2, 20vw);
   }
 
   #players {

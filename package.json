@@ -25,7 +25,7 @@
     "@types/jest": "^24.0.15",
     "axios": "^0.19.0",
     "babel": "^6.23.0",
-    "boardgame.io": "^0.31.7",
+    "boardgame.io": "^0.32.1",
     "esm": "^3.2.25",
     "font": "0.0.4",
     "parcel-bundler": "^1.12.3",

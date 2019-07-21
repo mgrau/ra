@@ -1,11 +1,16 @@
 import React from "react";
 import axios from "axios";
 
+import Container from "@material-ui/core/container";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
 import Button from "@material-ui/core/button";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Client } from "boardgame.io/react";
 import { Ra } from "./game/game.ts";
@@ -140,45 +145,13 @@ export default class Multiplayer extends React.Component {
 
     if (this.state.lobbyState == LobbyStateEnum.CREATE) {
       return (
-        <div>
-          <FormControl>
-            <TextField
-              autoComplete="off"
-              id="outlined-name"
-              label="Name"
-              value={this.state.name}
-              onChange={event => this.setState({ name: event.target.value })}
-              margin="normal"
-              variant="outlined"
-            />
-
-            <TextField
-              id="num-players"
-              select
-              label="Number of Players"
-              value={this.state.numPlayers}
-              onChange={event =>
-                this.setState({ numPlayers: event.target.value })
-              }
-              helperText="Please select the number of players"
-              margin="normal"
-              variant="outlined"
-            >
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-            </TextField>
-
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => this.create()}
-            >
-              Create Game
-            </Button>
-          </FormControl>
-        </div>
+        <CreateGame
+          numPlayers={this.state.numPlayers}
+          name={this.state.name}
+          create={() => this.create()}
+          onChangeNumPlayers={numPlayers => this.setState({ numPlayers })}
+          onChangeName={name => this.setState({ name })}
+        />
       );
     } else if (this.state.lobbyState == LobbyStateEnum.JOIN) {
       return (
@@ -248,3 +221,77 @@ export default class Multiplayer extends React.Component {
     }
   }
 }
+
+function CreateGame(props) {
+  const classes = useStyles();
+  return (
+    <Container component="main" maxWidth="xs">
+      <Paper className={classes.paper}>
+        <Typography className={classes.h1} component="h1" variant="h5">
+          Create a Multiplayer Game
+        </Typography>
+        <TextField
+          autoComplete="off"
+          id="outlined-name"
+          label="Player Name"
+          value={props.name}
+          fullWidth
+          onChange={event => props.onChangeName(event.target.value)}
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          className={classes.select}
+          value={props.numPlayers}
+          onChange={event => {
+            props.onChange(event.target.value);
+          }}
+          label="Number of Players"
+          select
+          fullWidth
+          variant="outlined"
+          inputProps={{
+            name: "numPlayers",
+            id: "num-players"
+          }}
+        >
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+        </TextField>
+        <Button
+          className={classes.button}
+          variant="contained"
+          fullWidth
+          color="primary"
+          onClick={() => props.create()}
+        >
+          Start
+        </Button>
+      </Paper>
+    </Container>
+  );
+}
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
+  },
+  h1: {
+    margin: theme.spacing(1),
+    paddingBottom: theme.spacing(4)
+  },
+  select: {
+    margin: theme.spacing(1)
+  },
+  button: {
+    margin: theme.spacing(1)
+  }
+}));

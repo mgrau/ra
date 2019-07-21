@@ -39,8 +39,8 @@ export default class Rules extends React.Component {
           <ul>
             <li>0 tiles is -5 points</li>
             <li>3 tiles is +5 points</li>
-            <li>4 tiles is +5 points</li>
-            <li>5 tiles is +5 points</li>
+            <li>4 tiles is +10 points</li>
+            <li>5 tiles is +15 points</li>
           </ul>
         </div>
         <div>

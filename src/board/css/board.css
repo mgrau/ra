@@ -2,13 +2,13 @@
   --colNum: 10;
 }
 
-#root {
+#ra {
   font-size: 1.5em;
   display: grid;
 }
 
 @media screen and (min-width: 451px) {
-  #root {
+  #ra {
     min-width: calc(8 * 10vh + 1vh);
     width: calc(var(--colNum) * 10vh + 1vh);
   }
@@ -91,7 +91,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  #root {
+  #ra {
     font-size: 1.5em;
     grid-template-rows: 1fr 1fr 1fr;
     margin: 0px;

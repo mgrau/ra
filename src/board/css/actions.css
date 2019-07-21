@@ -31,8 +31,7 @@
 @media screen and (max-width: 450px) {
   .actions button {
     margin: 2vw;
-    height: 20vw;
-    padding: 5vw;
+    height: 15vw;
     font-size: 50%;
   }
 }

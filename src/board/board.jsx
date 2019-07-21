@@ -146,7 +146,7 @@ export default class RaBoard extends React.Component {
       />
     ));
     return (
-      <div>
+      <div id="ra">
         <Modal
           open={this.state.rulesOpen}
           onClose={() => this.setState({ rulesOpen: false })}

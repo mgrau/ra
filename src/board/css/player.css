@@ -3,6 +3,7 @@
   box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
   margin: 1vh;
   padding: 1vh;
+  font-size: 80%;
 }
 
 #players .player.this-player {
@@ -15,8 +16,9 @@
 
 #players .player > div:first-child {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   justify-content: space-between;
+  text-align: center;
 }
 
 #players .player .raPlayer {
@@ -122,6 +124,7 @@
   #players .player {
     box-shadow: 0px 0px 1vh 0.2vh rgba(0, 0, 0, 0.25);
     padding: 5vw;
+    font-size: 100%;
   }
 
   #players .player.this-player {

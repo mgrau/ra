@@ -1,12 +1,11 @@
 import React from "react";
 
-import Container from "@material-ui/core/container";
+import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/button";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Client } from "boardgame.io/react";
